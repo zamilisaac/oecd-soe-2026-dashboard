@@ -1,0 +1,725 @@
+<title>SOE Governance 2026 Digest</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: official policy-digest bulletin — masthead, sticky section index, headline figures, then themed panels in a 12-col grid collapsing to one column. */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --surface-2:#eef2f7;
+  --ink:#0f1b2d; --ink-2:#465264; --muted:#6d7888;
+  --line:#dfe4eb; --line-2:#c9d1dc;
+  --accent:#0d4a83; --accent-soft:#e3edf8;
+  --soe:#1f6fd1; --non:#e0662c; --track:#e8edf3;
+  --good:#1d7a46; --good-bg:#e3f4ea; --good-line:#9fd3b4;
+  --warn:#9a5a00; --warn-bg:#fff3dc; --warn-line:#f0c46c;
+  --bad:#b3261e; --bad-bg:#fde8e6; --bad-line:#f1aaa4;
+  --info:#0d4a83; --info-bg:#e3edf8; --info-line:#a9c6e8;
+  --font:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1218; --surface:#151c25; --surface-2:#1c2531;
+  --ink:#e9eef4; --ink-2:#b3bfcc; --muted:#8a96a5;
+  --line:#253141; --line-2:#334255;
+  --accent:#7db3ea; --accent-soft:#1b2c42;
+  --soe:#4b93e6; --non:#d9672e; --track:#202b38;
+  --good:#6fd39a; --good-bg:#14291d; --good-line:#2c5b3f;
+  --warn:#f2b54a; --warn-bg:#2e2412; --warn-line:#7a5a1c;
+  --bad:#f28b82; --bad-bg:#331a19; --bad-line:#7a3430;
+  --info:#7db3ea; --info-bg:#1b2c42; --info-line:#30507a;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1218; --surface:#151c25; --surface-2:#1c2531;
+  --ink:#e9eef4; --ink-2:#b3bfcc; --muted:#8a96a5;
+  --line:#253141; --line-2:#334255;
+  --accent:#7db3ea; --accent-soft:#1b2c42;
+  --soe:#4b93e6; --non:#d9672e; --track:#202b38;
+  --good:#6fd39a; --good-bg:#14291d; --good-line:#2c5b3f;
+  --warn:#f2b54a; --warn-bg:#2e2412; --warn-line:#7a5a1c;
+  --bad:#f28b82; --bad-bg:#331a19; --bad-line:#7a3430;
+  --info:#7db3ea; --info-bg:#1b2c42; --info-line:#30507a;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1200px;margin:0 auto}
+.en{color:var(--muted);font-weight:400}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* Masthead */
+.mast{padding-block:28px 18px;display:grid;gap:12px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.mast h1{font-size:clamp(24px,3.6vw,36px);font-weight:800;letter-spacing:-.015em;line-height:1.15}
+.mast h1 .en{display:block;font-weight:500;font-size:.6em;letter-spacing:0;margin-top:4px;color:var(--ink-2)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:600}
+.stamp{display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--ink);padding:5px 10px;border-radius:999px;font-size:13px;width:fit-content}
+.stamp .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* Sticky index */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:6px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 10px rgba(15,27,45,.06)}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;color:var(--ink-2);font-size:13px;font-weight:600;padding:7px 11px;border-radius:7px;white-space:nowrap}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.nav a.on{background:var(--accent-soft);color:var(--ink)}
+
+section{scroll-margin-top:70px;margin-top:34px}
+.sec-h{display:grid;gap:4px;margin-bottom:14px}
+.sec-h .tag{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.04em}
+.sec-h h2{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.sec-h h2 .en{font-size:15px;font-weight:500;margin-left:6px}
+.sec-h p{font-size:13.5px;color:var(--ink-2);max-width:80ch}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.kpi .lab{font-size:13px;font-weight:600;line-height:1.3}
+.kpi .lab .en{display:block;font-size:12px}
+.kpi .val{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.kpi .val small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:3px}
+.kpi .sub{font-size:12.5px;color:var(--ink-2)}
+.em-band{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px}
+.em-band h3{font-size:14px}
+.em-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:center;font-size:13px}
+.split{display:flex;height:14px;border-radius:4px;overflow:hidden;gap:2px}
+.split span{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-2)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* Panels */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.s12{grid-column:span 12}.s7{grid-column:span 7}.s5{grid-column:span 5}.s6{grid-column:span 6}.s4{grid-column:span 4}.s8{grid-column:span 8}
+.panel h3{font-size:15px;font-weight:700;line-height:1.3}
+.panel h3 .en{display:block;font-size:12.5px;font-weight:400}
+.note{font-size:12px;color:var(--muted)}
+.src{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* Highlights / concerns */
+.hc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.hc .panel{border-top:3px solid var(--good)}
+.hc .panel.c{border-top-color:var(--bad)}
+.hc ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.hc li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;font-size:14px}
+.hc li .en{display:block;font-size:12.5px;margin-top:2px}
+.hc li b.n{font-variant-numeric:tabular-nums}
+.ico{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}
+.ico.g{background:var(--good-bg);color:var(--good)}
+.ico.b{background:var(--bad-bg);color:var(--bad)}
+
+/* Bar charts (HTML) */
+.bars{display:grid;gap:9px}
+.brow{display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr) 74px;gap:10px;align-items:center;font-size:13px}
+.brow .bl{line-height:1.25;min-width:0}
+.brow .bl .en{display:block;font-size:11.5px}
+.brow .bv{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.track{height:16px;border-radius:0 4px 4px 0;display:flex;gap:2px;position:relative}
+.seg{height:100%;min-width:2px}
+.seg:last-child{border-radius:0 4px 4px 0}
+.ref{position:absolute;top:-3px;bottom:-3px;width:0;border-left:1.5px dashed var(--line-2)}
+.pair{display:grid;gap:14px}
+.prow{display:grid;gap:6px}
+.prow .pl{font-size:13px;font-weight:600}
+.prow .pl .en{font-weight:400;font-size:12px;margin-left:4px}
+.pbar{display:grid;grid-template-columns:62px minmax(0,1fr) 62px;gap:8px;align-items:center;font-size:12px}
+.pbar .who{color:var(--ink-2)}
+.pbar .v{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;font-size:13px}
+.pbar .bar{height:12px;border-radius:0 4px 4px 0}
+.pbar .bt{background:var(--track);border-radius:0 4px 4px 0}
+
+/* Governance scorecard */
+.gov-group{display:grid;gap:9px}
+.gov-group h4{margin:6px 0 0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.gov-group h4 .en{text-transform:none;letter-spacing:0;font-weight:400}
+.gbar{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 58px;gap:10px;align-items:center;font-size:13px}
+.gbar .gl{line-height:1.3}
+.gbar .gl .en{display:block;font-size:11.5px}
+.gbar .gt{height:12px;background:var(--track);border-radius:0 4px 4px 0;position:relative}
+.gbar .gf{height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.gbar.low .gf{background:var(--warn)}
+.gbar .gv{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.gbar .ref{left:50%}
+
+/* Change table */
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+thead th{font-size:11.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+td .en{display:block;font-size:11.5px}
+.up{color:var(--good)}.down{color:var(--bad)}
+
+/* Chips */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid;width:fit-content;white-space:nowrap}
+.chip.good{background:var(--good-bg);color:var(--good);border-color:var(--good-line)}
+.chip.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-line)}
+.chip.bad{background:var(--bad-bg);color:var(--bad);border-color:var(--bad-line)}
+.chip.info{background:var(--info-bg);color:var(--info);border-color:var(--info-line)}
+
+/* Malaysia */
+.my-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.my{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:8px;min-width:0;align-content:start}
+.my .t{font-weight:700;font-size:14px;line-height:1.35}
+.my .t .en{display:block;font-weight:400;font-size:12.5px;margin-top:2px}
+.my .ctx{font-size:12.5px;color:var(--ink-2)}
+.my-intro{background:var(--accent-soft);border-radius:var(--r);padding:14px 16px;font-size:13.5px;display:grid;gap:6px;margin-bottom:12px}
+
+.models{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.model{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:4px}
+.model .mv{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.model .ml{font-size:12.5px;font-weight:600;line-height:1.3}
+.model .ml .en{display:block;font-weight:400;font-size:11.5px}
+.model.my-on{border-color:var(--accent);background:var(--accent-soft)}
+
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.subnav a{font-size:12.5px;font-weight:600;text-decoration:none;color:var(--accent);border:1px solid var(--info-line);background:var(--surface);padding:5px 10px;border-radius:999px}
+.subnav a:hover{background:var(--accent-soft)}
+.sub{scroll-margin-top:70px;margin-top:22px;display:grid;gap:10px}
+.subh{font-size:17px;font-weight:800;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.subh .en{font-size:13.5px;font-weight:500}
+.subh .k{font-family:var(--mono);font-size:12px;color:var(--bg);background:var(--accent);border-radius:5px;padding:1px 7px;align-self:center}
+.ext{font-size:12.5px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.my-kpis{margin-top:0}
+.plain{margin:0;padding-left:18px;display:grid;gap:8px;font-size:13.5px}
+.pov{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pov p,.body{font-size:13.5px;color:var(--ink-2);max-width:75ch}
+table.apply td,table.apply th{white-space:normal;text-align:left;vertical-align:top;min-width:150px}
+table.apply td:first-child{font-weight:700;min-width:120px}
+table.apply td .chip{margin-bottom:4px}
+.road{display:grid;gap:10px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:6px 14px;align-items:start}
+.step .no{font-family:var(--mono);font-size:20px;color:var(--accent);font-weight:500;line-height:1.2}
+.step .st{font-weight:700;font-size:14.5px;line-height:1.35}
+.step .st .en{display:block;font-weight:400;font-size:12.5px;margin-top:2px}
+.step .sd{grid-column:2 / 4;font-size:13px;color:var(--ink-2);max-width:90ch}
+.step .sr{grid-column:2 / 4;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.step .when{justify-self:end}
+.phase{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:6px}
+@media (max-width:900px){.pov{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.step{grid-template-columns:32px minmax(0,1fr)}.step .when{grid-column:2;justify-self:start}.step .sd,.step .sr{grid-column:1 / -1}}
+.notes{font-size:13px;color:var(--ink-2);display:grid;gap:8px}
+.notes li{max-width:100ch}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:6px}
+footer{margin-top:28px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;padding:6px 9px;border-radius:6px;max-width:260px;line-height:1.35;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+[data-tip]{cursor:default}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s7,.s5,.s6,.s4,.s8{grid-column:span 12}
+  .hc,.my-grid{grid-template-columns:minmax(0,1fr)}
+  .models{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){
+  .kpi .val{font-size:25px}
+  .em-row{grid-template-columns:minmax(0,1fr)}
+  .brow{grid-template-columns:minmax(0,92px) minmax(0,1fr) 60px}
+  .gbar{grid-template-columns:minmax(0,1fr) 54px}
+  .gbar .gt{grid-column:1 / -1;grid-row:2}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="eyebrow">Ringkasan Laporan · Report Digest</div>
+    <h1>Pemilikan &amp; Tadbir Urus Syarikat Milik Kerajaan 2026
+      <span class="en">Ownership and Governance of State-Owned Enterprises (SOEs) 2026</span></h1>
+    <div class="meta">
+      <span>Sumber <span class="en">/ Source</span>: <b>OECD (2026)</b>, 152 halaman</span>
+      <span>Liputan <span class="en">/ Coverage</span>: <b>58 bidang kuasa</b> (termasuk Malaysia) · data firma <b>2013–2024</b></span>
+      <span>DOI: <a href="https://doi.org/10.1787/b72bf04c-en" target="_blank" rel="noopener">10.1787/b72bf04c-en</a></span>
+    </div>
+    <span class="stamp"><span class="dot"></span>Dikemas kini <span class="en">/ Last updated</span>&nbsp;<b>23 Okt 2026</b></span>
+  </header>
+
+  <nav class="nav" id="nav" aria-label="Bahagian">
+    <a href="#ringkasan">Ringkasan</a>
+    <a href="#landskap">Landskap global</a>
+    <a href="#prestasi">SOE vs swasta</a>
+    <a href="#tadbir">Tadbir urus</a>
+    <a href="#integriti">Integriti</a>
+    <a href="#malaysia">Malaysia</a>
+    <a href="#nota">Nota data</a>
+  </nav>
+
+  <!-- 1. Summary -->
+  <section id="ringkasan">
+    <div class="kpis">
+      <div class="kpi"><div class="lab">Bilangan SOE besar<span class="en">Large SOEs worldwide, 2024</span></div>
+        <div class="val num">33,834</div><div class="sub">23.0% kewangan · 77.0% bukan kewangan</div></div>
+      <div class="kpi"><div class="lab">Jumlah aset<span class="en">Combined assets, 2024</span></div>
+        <div class="val num">USD 141<small>trilion</small></div><div class="sub">bersamaan 126.0% KDNK global <span class="en">/ of global GDP</span></div></div>
+      <div class="kpi"><div class="lab">Pekerjaan<span class="en">Employment, 2024</span></div>
+        <div class="val num">43<small>juta orang</small></div><div class="sub">33.7 juta dalam SOE bukan kewangan</div></div>
+      <div class="kpi"><div class="lab">SOE bukan kewangan<span class="en">Large non-financial SOEs</span></div>
+        <div class="val num">26,068</div><div class="sub">naik daripada 9,584 pada 2013 · aset hampir 2× (nilai benar)</div></div>
+    </div>
+    <div class="em-band">
+      <h3>Ekonomi sedang pesat menguasai sektor SOE <span class="en">/ Emerging economies dominate the SOE footprint (2024)</span></h3>
+      <div class="legend"><span><span class="sw" style="background:var(--soe)"></span>Ekonomi sedang pesat <span class="en">/ Emerging</span></span><span><span class="sw" style="background:var(--line-2)"></span>Ekonomi maju <span class="en">/ Advanced</span></span></div>
+      <div id="emRows" style="display:grid;gap:8px"></div>
+    </div>
+
+    <div class="hc" style="margin-top:14px">
+      <div class="panel">
+        <h3>Sorotan utama<span class="en">Key highlights</span></h3>
+        <ul id="hiList"></ul>
+      </div>
+      <div class="panel c">
+        <h3>Isu yang membimbangkan<span class="en">Key concerns</span></h3>
+        <ul id="coList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Landscape -->
+  <section id="landskap">
+    <div class="sec-h"><span class="tag">BAB 1 · CHAPTER 1</span>
+      <h2>Landskap SOE global<span class="en">Global SOE landscape</span></h2>
+      <p>China mempunyai sektor SOE terbesar: 56.0% daripada SOE bukan kewangan dunia, 61.0% pekerjaan dan 62.0% aset. <span class="en">China holds the largest SOE sector by every measure.</span></p></div>
+    <div class="grid">
+      <div class="panel s6">
+        <h3>Bilangan SOE mengikut rantau, 2024<span class="en">Number of SOEs by region</span></h3>
+        <div class="legend"><span><span class="sw" style="background:var(--soe)"></span>Bukan kewangan <span class="en">/ Non-financial</span></span><span><span class="sw" style="background:var(--non)"></span>Kewangan <span class="en">/ Financial</span></span></div>
+        <div class="bars" id="cNum"></div>
+        <div class="src">Rajah 1.1 · OECD Global SOE Dataset</div>
+      </div>
+      <div class="panel s6">
+        <h3>Aset SOE mengikut rantau, 2024 (USD trilion)<span class="en">Total SOE assets by region (USD tn)</span></h3>
+        <div class="legend"><span><span class="sw" style="background:var(--soe)"></span>Bukan kewangan <span class="en">/ Non-financial</span></span><span><span class="sw" style="background:var(--non)"></span>Kewangan <span class="en">/ Financial</span></span></div>
+        <div class="bars" id="cAst"></div>
+        <div class="note">Nilai seperti dilaporkan (dibundarkan dalam laporan). SOE kewangan memegang USD 102 trilion berbanding USD 38.9 trilion bagi bukan kewangan.</div>
+        <div class="src">Rajah 1.1 · OECD Global SOE Dataset</div>
+      </div>
+      <div class="panel s12">
+        <h3>Peralihan 2013 → 2024: syer aset SOE bukan kewangan<span class="en">Shift in share of non-financial SOE assets</span></h3>
+        <div class="tw"><table>
+          <thead><tr><th>Petunjuk <span class="en">/ Indicator</span></th><th>2013</th><th>2024</th><th>Perubahan</th></tr></thead>
+          <tbody>
+            <tr><td>Syer aset — China<span class="en">China's share of NF SOE assets</span></td><td>34.0%</td><td>62.0%</td><td class="up">+28.0 m.p.*</td></tr>
+            <tr><td>Syer aset — Eropah<span class="en">Europe's share of NF SOE assets</span></td><td>32.0%</td><td>17.0%</td><td class="down">−15.0 m.p.</td></tr>
+            <tr><td>Bilangan SOE bukan kewangan besar<span class="en">Large non-financial SOEs</span></td><td>9,584</td><td>26,068</td><td class="up">+16,484</td></tr>
+            <tr><td>Afrika: syer jualan perlombongan<span class="en">Africa: mining share of SOE sales</span></td><td>83.0%</td><td>41.0%</td><td class="down">−42.0 m.p.</td></tr>
+            <tr><td>Eropah: syer jualan utiliti<span class="en">Europe: utilities share of SOE sales</span></td><td>55.0%</td><td>65.0%</td><td class="up">+10.0 m.p.</td></tr>
+          </tbody></table></div>
+        <div class="note">m.p. = mata peratusan (percentage points). *Laporan menyebut "hampir 30 m.p."; nilai di sini dikira daripada 34% dan 62%. OECD memberi amaran bahawa sebahagian perubahan mungkin mencerminkan liputan sampel, bukan perubahan sebenar.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SOE vs non-SOE -->
+  <section id="prestasi">
+    <div class="sec-h"><span class="tag">BAB 1.4 · CHAPTER 1.4</span>
+      <h2>SOE berbanding syarikat swasta<span class="en">SOEs vs privately held companies</span></h2>
+      <p>Perbandingan 17,441 SOE dengan 64,807 bukan SOE dalam enam industri (pembinaan, pembuatan, perlombongan, hartanah, perkhidmatan, perdagangan borong), 2013–2024.</p></div>
+    <div class="grid">
+      <div class="panel s7">
+        <h3>Keuntungan, leveraj dan R&amp;D (median)<span class="en">Profitability, leverage and R&amp;D</span></h3>
+        <div class="legend"><span><span class="sw" style="background:var(--soe)"></span>SOE</span><span><span class="sw" style="background:var(--non)"></span>Bukan SOE <span class="en">/ Non-SOE</span></span></div>
+        <div class="pair" id="cPair"></div>
+        <div class="src">Rajah 1.15, 1.18, 1.21 · teks Bab 1.4</div>
+      </div>
+      <div class="panel s5">
+        <h3>Untung bersih median, 2024 (USD juta)<span class="en">Median net profit</span></h3>
+        <div class="pair" id="cProfit"></div>
+        <div class="note">Untung bersih median bukan SOE lebih dua kali ganda SOE.</div>
+        <h3 style="margin-top:6px">Pengecualian: perlombongan<span class="en">Exception: mining ROE, 2024</span></h3>
+        <div class="pair" id="cMining"></div>
+        <div class="note">SOE perlombongan sentiasa mengatasi swasta, sebahagiannya kerana skala dan akses istimewa kepada rizab dan lesen.</div>
+      </div>
+      <div class="panel s12">
+        <h3>Trend prestasi serantau, 2013 → 2024<span class="en">Regional performance trends</span></h3>
+        <div class="tw"><table>
+          <thead><tr><th>Rantau &amp; petunjuk</th><th>2013</th><th>2024</th><th>Arah <span class="en">/ Direction</span></th></tr></thead>
+          <tbody>
+            <tr><td>China — SOE rugi<span class="en">Share of loss-making SOEs</span></td><td>17.0%</td><td>27.0%</td><td><span class="chip bad">▼ Merosot</span></td></tr>
+            <tr><td>China — ROE median</td><td>6.0%</td><td>4.0%</td><td><span class="chip bad">▼ Merosot</span></td></tr>
+            <tr><td>China — pusing ganti aset<span class="en">Asset turnover</span></td><td>67.0%</td><td>43.0%</td><td><span class="chip bad">▼ Merosot</span></td></tr>
+            <tr><td>Amerika Latin &amp; Caribbean — SOE rugi</td><td>25.0%</td><td>21.0%<span class="en">(≈ "around")</span></td><td><span class="chip good">▲ Bertambah baik</span></td></tr>
+            <tr><td>Amerika Latin &amp; Caribbean — ROE median</td><td>5.0%</td><td>10.0%<span class="en">(≈ "around")</span></td><td><span class="chip good">▲ Bertambah baik</span></td></tr>
+            <tr><td>Afrika — leveraj agregat<span class="en">Aggregate leverage change</span></td><td colspan="2">+16.0 m.p.</td><td><span class="chip warn">▲ Lebih berhutang</span></td></tr>
+            <tr><td>Amerika Latin &amp; Caribbean — leveraj agregat</td><td colspan="2">+18.0 m.p.</td><td><span class="chip warn">▲ Lebih berhutang</span></td></tr>
+            <tr><td>China — leveraj agregat</td><td colspan="2">−1.0 m.p.</td><td><span class="chip info">● Stabil</span></td></tr>
+          </tbody></table></div>
+        <div class="note">Prestasi kukuh di Afrika dan Amerika Latin banyak dipacu oleh syarikat perlombongan. Sumber: Rajah 1.8, 1.9.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Governance -->
+  <section id="tadbir">
+    <div class="sec-h"><span class="tag">BAB 2–6 · CHAPTERS 2–6</span>
+      <h2>Kad skor tadbir urus<span class="en">Governance scorecard: share of 58 jurisdictions</span></h2>
+      <p>Peratus bidang kuasa yang melaporkan amalan tersebut. Bar <span style="color:var(--warn);font-weight:700">jingga</span> menandakan amalan baik yang diterima pakai oleh kurang daripada separuh bidang kuasa; garis putus-putus = 50%.</p></div>
+    <div class="grid">
+      <div class="panel s7">
+        <div id="govA" style="display:grid;gap:14px"></div>
+      </div>
+      <div class="panel s5">
+        <div id="govB" style="display:grid;gap:14px"></div>
+      </div>
+      <div class="panel s12">
+        <h3>Model pemilikan negara<span class="en">State ownership models (share of jurisdictions)</span></h3>
+        <div class="models">
+          <div class="model my-on"><div class="mv num">26.0%</div><div class="ml">Tersebar<span class="en">Dispersed — each SOE overseen by its line ministry</span></div><span class="chip info">Model Malaysia</span></div>
+          <div class="model"><div class="mv num">22.0%</div><div class="ml">Portfolio / syarikat induk<span class="en">Portfolio-based, incl. holding companies</span></div></div>
+          <div class="model"><div class="mv num">19.0%</div><div class="ml">Jabatan penyelaras<span class="en">Co-ordinating department</span></div></div>
+          <div class="model"><div class="mv num">10.0%</div><div class="ml">Berpusat sepenuhnya<span class="en">Fully centralised</span></div></div>
+        </div>
+        <div class="note">Baki bidang kuasa menggunakan model dwi atau "twin-track" (pecahan tepat tidak dinyatakan dalam teks). Hampir dua pertiga kini menggunakan model berkoordinasi. Sumber: Rajah 2.3, Jadual 2.4.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Integrity -->
+  <section id="integriti">
+    <div class="sec-h"><span class="tag">BAB 7 · CHAPTER 7</span>
+      <h2>Antirasuah &amp; integriti<span class="en">Anti-corruption and integrity</span></h2>
+      <p>Berdasarkan 27 bidang kuasa dalam kajian pelaksanaan Garis Panduan ACI OECD (2025). Malaysia tidak termasuk dalam sampel ini.</p></div>
+    <div class="grid">
+      <div class="panel s6">
+        <h3>Tahap pelaksanaan mengikut tonggak<span class="en">Average implementation by pillar</span></h3>
+        <div class="bars" id="cPillar"></div>
+        <div class="note">Peruntukan paling lemah: input daripada pihak berkepentingan luar, 41.0%.</div>
+        <div class="src">Rajah 7.2</div>
+      </div>
+      <div class="panel s6">
+        <h3>Jurang antara peraturan dan amalan<span class="en">Gaps between rules and practice</span></h3>
+        <div class="pair" id="cGap"></div>
+        <div class="note">Kaji selidik OECD terdahulu: 42.0% responden SOE pernah melihat kelakuan rasuah atau tidak wajar dalam tempoh tiga tahun sebelumnya.</div>
+        <div class="src">Jadual 7.2 · Rajah 7.3 · teks Bab 7</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Malaysia -->
+  <section id="malaysia">
+    <div class="sec-h"><span class="tag">SOROTAN NEGARA · COUNTRY SPOTLIGHT</span>
+      <h2>Malaysia: konteks, kesesuaian &amp; hala tuju<span class="en">Malaysia: context, relevance and way forward</span></h2>
+      <p>Bagaimana dapatan OECD terpakai kepada syarikat milik kerajaan (GLC/GLIC) di Malaysia, dan langkah yang boleh diambil.</p></div>
+    <div class="subnav" role="list">
+      <a href="#my-konteks">A · Konteks</a><a href="#my-dapatan">B · Dapatan laporan</a><a href="#my-kesesuaian">C · Kesesuaian</a><a href="#my-pov">D · Perspektif Malaysia</a><a href="#my-hala">E · Hala tuju</a>
+    </div>
+
+    <!-- A. Context -->
+    <div class="sub" id="my-konteks">
+      <h3 class="subh"><span class="k">A</span>Konteks Malaysia<span class="en">Malaysia context</span></h3>
+      <div class="ext"><span class="chip info">Sumber luar laporan OECD</span> Angka di bahagian ini daripada MOF dan media; lihat senarai sumber di bawah.</div>
+      <div class="kpis my-kpis">
+        <div class="kpi"><div class="lab">GLIC utama<span class="en">Main GLICs under PERKUKUH (2021)</span></div><div class="val num">8</div><div class="sub">Khazanah, KWAP, KWAN, MOF Inc., KWSP, PNB, LTH, LTAT</div></div>
+        <div class="kpi"><div class="lab">Aset diurus GLIC<span class="en">GLIC assets under management (2021)</span></div><div class="val num">RM1.7<small>trilion</small></div><div class="sub">≈ ¼ permodalan pasaran Bursa Malaysia</div></div>
+        <div class="kpi"><div class="lab">Komitmen GEAR-uP<span class="en">GEAR-uP domestic investment pledge</span></div><div class="val num">RM120<small>bilion</small></div><div class="sub">6 GLIC, pelaburan langsung domestik dalam 5 tahun (Ogos 2024)</div></div>
+        <div class="kpi"><div class="lab">Pelaburan domestik GLIC<span class="en">Domestic direct investment</span></div><div class="val num">RM20.3<small>bilion</small></div><div class="sub">2025, naik daripada RM6.6 bilion (2024)</div></div>
+      </div>
+      <div class="grid" style="margin-top:12px">
+        <div class="panel s6">
+          <h3>Struktur pemilikan negara<span class="en">How the state owns companies</span></h3>
+          <ul class="plain">
+            <li><b>Model tersebar:</b> menurut OECD, setiap SOE diselia kementerian berkaitan; tiada satu badan pemilikan pusat (Jadual 2.4).</li>
+            <li><b>GLIC sebagai pemegang saham:</b> Khazanah, KWAP, KWAN dan MOF Inc. (dana kekayaan berdaulat), serta KWSP, PNB, LTH dan LTAT (pelabur institusi), memegang kepentingan dalam GLC tersenarai dan tidak tersenarai.</li>
+            <li><b>PERKUKUH (2021):</b> 20 inisiatif untuk menjelaskan mandat GLIC, mengkaji semula "golden share", mentakrif semula sektor strategik dan menggalakkan penyertaan swasta.</li>
+          </ul>
+        </div>
+        <div class="panel s6">
+          <h3>Laporan Kad GEAR-uP 2026 (data 2025)<span class="en">GEAR-uP Report Card 2026</span></h3>
+          <ul class="plain">
+            <li><b>37 GLC</b> di bawah 6 GLIC mencatat pulangan pemegang saham <b>8.0%</b>, melebihi sasaran <b>7.5%</b>.</li>
+            <li><b>91.7%</b> daripada <b>206,987</b> pekerja tetap warganegara menerima sekurang-kurangnya RM3,100 sebulan (gaji wajar).</li>
+            <li><b>RM641 juta</b> untuk program komuniti, naik 20.0% berbanding tahun sebelumnya.</li>
+            <li>Sebahagian besar komitmen RM120 bilion <b>belum disalurkan</b>.</li>
+          </ul>
+          <div class="note">Pulangan pemegang saham GLC tidak boleh dibandingkan terus dengan ROE median dalam Bab 1 OECD kerana ukuran dan sampelnya berbeza.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B. Report findings -->
+    <div class="sub" id="my-dapatan">
+      <h3 class="subh"><span class="k">B</span>Apa kata laporan OECD tentang Malaysia<span class="en">What the OECD report records for Malaysia</span></h3>
+      <div class="my-intro">
+        <p>Malaysia ialah salah satu daripada 58 bidang kuasa yang dikaji. Laporan tidak menilai negara secara individu; kad di bawah menyusun jawapan Malaysia yang dinyatakan secara jelas dalam jadual laporan.</p>
+        <p class="en">Status labels are this digest's reading against the OECD SOE Guidelines, not an OECD rating.</p>
+      </div>
+      <div class="my-grid" id="myGrid"></div>
+    </div>
+
+    <!-- C. Applicability -->
+    <div class="sub" id="my-kesesuaian">
+      <h3 class="subh"><span class="k">C</span>Bagaimana dapatan ini terpakai kepada Malaysia<span class="en">How the findings apply to Malaysia</span></h3>
+      <div class="panel">
+        <div class="tw"><table class="apply">
+          <thead><tr><th>Tema</th><th>Penanda aras OECD (58 negara)</th><th>Kedudukan Malaysia</th><th>Implikasi untuk Malaysia</th></tr></thead>
+          <tbody id="applyBody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- D. POV -->
+    <div class="sub" id="my-pov">
+      <h3 class="subh"><span class="k">D</span>Perspektif Malaysia<span class="en">A Malaysian point of view</span></h3>
+      <div class="ext"><span class="chip warn">Analisis</span> Bahagian ini ialah tafsiran penyusun berdasarkan laporan OECD dan sumber Malaysia, bukan pandangan rasmi OECD atau kerajaan.</div>
+      <div class="pov">
+        <div class="panel"><span class="chip good">Kekuatan</span>
+          <h3>Ekosistem GLIC yang besar dan kini mengukur hasil sosial<span class="en">Scale, and outcomes beyond profit</span></h3>
+          <p>OECD mahu negara menilai prestasi komersial dan hasil dasar awam sekali gus. Laporan Kad GEAR-uP sudah melaporkan gaji, pekerjaan dan rantaian bekalan di samping pulangan. Malaysia juga antara 25 negara yang memberi lembaga kuasa penuh atas strategi.</p></div>
+        <div class="panel"><span class="chip warn">Ketegangan</span>
+          <h3>Mandat pembangunan perlu dikos dan didedahkan<span class="en">Developmental mandates need costing and disclosure</span></h3>
+          <p>Syarikat milik kerajaan di Malaysia memikul objektif nasional seperti pelaburan domestik dan penyertaan Bumiputera. Garis Panduan OECD tidak melarang mandat begini. Yang diminta ialah mandat itu jelas, dikos, dibayar secara telus dan didedahkan. Laporan merekodkan Malaysia belum mewajibkan pendedahan objektif dasar awam dan membayar PSO secara tidak langsung.</p></div>
+        <div class="panel"><span class="chip bad">Jurang utama</span>
+          <h3>Tiada payung dasar dan pemisahan fungsi<span class="en">No umbrella policy, blurred roles</span></h3>
+          <p>Tanpa dasar pemilikan negara, rasional pemilikan bergantung kepada inisiatif berasingan seperti PERKUKUH dan GEAR-uP yang tertumpu pada GLIC. SOE di bawah kementerian lain mungkin tidak diliputi. Kementerian yang memiliki syarikat dan turut menggubal dasar sektor berisiko konflik kepentingan, terutamanya dalam pasaran yang turut disertai syarikat swasta.</p></div>
+        <div class="panel"><span class="chip info">Pengajaran global</span>
+          <h3>SOE dunia kurang untung dan kurang melabur<span class="en">Global evidence to watch</span></h3>
+          <p>Di peringkat global, SOE mencatat ROE median 4.7% berbanding 6.4% bagi swasta, lebih berhutang, dan ramai melabur kurang daripada susut nilai aset. Bagi Malaysia, ini menyokong penekanan terhadap disiplin modal dan pelaburan produktif apabila RM120 bilion GEAR-uP disalurkan.</p></div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <h3>Pandangan masyarakat sivil<span class="en">Civil society view (IDEAS, Nov 2024)</span></h3>
+        <p class="body">IDEAS mencadangkan rangka lima perkara: rasional pemilikan bagi setiap entiti, piagam prestasi dengan laporan awam tahunan, pelantikan telus tanpa ahli politik aktif, ombudsman pemberi maklumat bebas, dan Parlimen sebagai badan pengawasan utama melalui jawatankuasa pilihan. Cadangan ini selari dengan Bab 2, 5 dan 7 laporan OECD.</p>
+      </div>
+    </div>
+
+    <!-- E. Way forward -->
+    <div class="sub" id="my-hala">
+      <h3 class="subh"><span class="k">E</span>Hala tuju untuk Malaysia<span class="en">Way forward for Malaysia</span></h3>
+      <div class="ext"><span class="chip warn">Cadangan</span> Cadangan penyusun berdasarkan Garis Panduan OECD dan dapatan laporan. Tempoh ialah cadangan keutamaan, bukan jadual rasmi.</div>
+      <div class="road" id="road"></div>
+    </div>
+
+    <div class="panel notes" style="margin-top:14px">
+      <h3>Sumber konteks Malaysia<span class="en">Sources for Malaysia context</span></h3>
+      <ul>
+        <li>MOF (8 Ogos 2024), <a href="https://mof.gov.my/portal/en/news/press-release/ekonomi-madani-rm120-billion-domestic-direct-investment-boost-from-glics-under-mof-led-programme" target="_blank" rel="noopener">Ekonomi MADANI: RM120 billion domestic direct investment boost from GLICs</a></li>
+        <li>MOF (2026), <a href="https://mof.gov.my/pdf/gearup-en/GEAR-uP-Report-Card-2026.pdf" target="_blank" rel="noopener">GEAR-uP Report Card 2026</a>; The Star (7 Ogos 2026), <a href="https://www.thestar.com.my/news/nation/2026/08/07/glics-triple-domestic-investments-to-rm203bil-under-gear-up-says-finance-ministry" target="_blank" rel="noopener">GLICs triple domestic investments to RM20.3bil under GEAR-uP</a></li>
+        <li>The Edge Malaysia (2021), <a href="https://theedgemalaysia.com/article/pm-launches-perkukuh-reform-malaysias-glics" target="_blank" rel="noopener">PM launches PERKUKUH to reform Malaysia's GLICs</a></li>
+        <li>IDEAS (14 Nov 2024), <a href="https://www.ideas.org.my/wp-content/uploads/2024/11/141124_GLC-Oversight_Statement.pdf" target="_blank" rel="noopener">Statement on GLC oversight</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Notes -->
+  <section id="nota">
+    <div class="sec-h"><span class="tag">METODOLOGI · METHOD</span>
+      <h2>Nota data<span class="en">Data notes</span></h2></div>
+    <div class="panel notes">
+      <ul>
+        <li><b>Definisi SOE:</b> pegangan ekuiti langsung dan tidak langsung oleh entiti negara sekurang-kurangnya 25%. Set data global meliputi SOE besar dengan aset sekurang-kurangnya USD 100 juta (harga 2024), berdasarkan Moody's ORBIS.</li>
+        <li><b>Dua sumber data:</b> Bab 1 menggunakan OECD Global SOE Dataset (33,834 firma). Bab 2–6 menggunakan Kaji Selidik OECD 2026 (73 soalan, 58 bidang kuasa). Bab 7 menggunakan kajian ACI 2025 (27 bidang kuasa).</li>
+        <li><b>Saiz sampel berbeza</b> mengikut soalan (contohnya 57 atau 52 bidang kuasa). Peratus di papan pemuka ini adalah seperti yang dilaporkan oleh OECD.</li>
+        <li><b>Format:</b> peratus dipaparkan kepada 1 titik perpuluhan; laporan asal membundarkan kebanyakan peratus kepada nombor bulat, jadi "43.0%" bermaksud "43%" dalam laporan. Nilai R&amp;D di bawah 1% dikekalkan seperti dilaporkan.</li>
+        <li><b>Semakan konsistensi:</b> jumlah SOE kewangan (7,766) dan bukan kewangan (26,068) = 33,834, sepadan dengan jumlah rasmi. Jumlah setiap rantau juga sepadan. Tiada percanggahan ditemui. Prakata menggunakan angka bundar "33 800".</li>
+        <li><b>Jawapan kaji selidik</b> mencerminkan rangka kerja formal yang dilaporkan, bukan penilaian pelaksanaan sebenar atau prestasi SOE individu.</li>
+        <li>Tiada data peribadi individu dipaparkan. Nama penulis laporan sengaja ditinggalkan.</li>
+      </ul>
+    </div>
+    <footer>Diadaptasi daripada OECD (2026), <i>Ownership and Governance of State-Owned Enterprises 2026</i>, OECD Publishing, Paris, https://doi.org/10.1787/b72bf04c-en (CC BY 4.0). Ini ialah adaptasi; pandangan dan label status di sini bukan pandangan rasmi OECD atau negara anggotanya.</footer>
+  </section>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const f1=v=>v.toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1});
+const fInt=v=>v.toLocaleString("en-US");
+const ICON_G='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+const ICON_B='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2.5v4.5M6 9.3v.2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+
+/* Emerging vs advanced */
+const em=[["Bilangan SOE bukan kewangan","NF SOE count",72],["Pekerjaan bukan kewangan","NF employment",83],["Aset bukan kewangan","NF assets",80],["Aset kewangan","Financial assets",80]];
+$("#emRows").innerHTML=em.map(([b,e,v])=>`<div class="em-row"><div>${b} <span class="en">/ ${e}</span></div>
+ <div class="split" data-tip="${b}: sedang pesat ${f1(v)}% · maju ${f1(100-v)}%"><span style="width:${v}%;background:var(--soe)"></span><span style="width:${100-v}%;background:var(--line-2)"></span></div></div>`).join("")
+ + `<div class="note">Peratus sedang pesat: ${em.map(x=>x[1]+" "+f1(x[2])+"%").join(" · ")}. Sumber: Rajah 1.1.</div>`;
+
+/* Highlights & concerns */
+const hi=[
+ ["Pemilikan semakin profesional dan berkoordinasi: hampir dua pertiga bidang kuasa kini guna model berkoordinasi, dwi, twin-track atau portfolio.","Ownership is becoming more co-ordinated."],
+ ["<b class='n'>93.0%</b> bidang kuasa mewajibkan audit luar bebas bagi semua atau sebahagian SOE; <b class='n'>71.0%</b> bagi semua SOE, naik daripada sedikit melebihi separuh pada 2024.","External audit coverage is widening."],
+ ["Lebih <b class='n'>90.0%</b> menjamin hak mengundi, akses maklumat dan saluran undang-undang bagi pemegang saham minoriti, termasuk dalam SOE tidak tersenarai.","Minority shareholder protection is near-universal."],
+ ["Penggunaan dasar pemilikan untuk menyampaikan jangkaan kelestarian meningkat kepada <b class='n'>51.0%</b> (2026) daripada <b class='n'>26.0%</b> (2024).","Sustainability expectations are being formalised."],
+ ["Prestasi SOE di Afrika dan Amerika Latin bertambah baik: ROE median Amerika Latin meningkat dua kali ganda daripada 5.0% kepada sekitar 10.0%.","Africa and LAC SOE performance improved."]
+];
+const co=[
+ ["SOE kurang menguntungkan: ROE median <b class='n'>4.7%</b> berbanding <b class='n'>6.4%</b> bagi swasta (purata 2013–2024).","SOEs are less profitable than private peers."],
+ ["Hanya <b class='n'>42.0%</b> mengasingkan fungsi pemilikan daripada fungsi dasar dan kawal selia; hanya <b class='n'>43.0%</b> mempunyai satu dasar pemilikan menyeluruh.","Ownership, policy and regulation still overlap."],
+ ["Hanya <b class='n'>57.0%</b> mengenakan rangka undang-undang yang sama kepada SOE seperti syarikat swasta; pengecualian melibatkan kebankrapan, perolehan dan persaingan.","Legal exemptions can tilt the playing field."],
+ ["Hanya <b class='n'>45.0%</b> melarang pemegang jawatan politik kanan menganggotai lembaga SOE; <b class='n'>54.0%</b> mewajibkan bilangan minimum pengarah bebas.","Board independence safeguards are uneven."],
+ ["Tiga perempat mewajibkan laporan pematuhan antirasuah, tetapi hanya <b class='n'>33.0%</b> entiti pemilikan menjejak laporan yang diterima.","Integrity reports are rarely monitored."],
+ ["SOE di China merosot: SOE rugi naik daripada 17.0% kepada 27.0%; ramai SOE melabur kurang daripada susut nilai aset sedia ada.","China's SOEs weakened; under-investment erodes capacity."]
+];
+const li=(arr,cls,ic)=>arr.map(([b,e])=>`<li><span class="ico ${cls}">${ic}</span><div>${b}<span class="en">${e}</span></div></li>`).join("");
+$("#hiList").innerHTML=li(hi,"g",ICON_G);
+$("#coList").innerHTML=li(co,"b",ICON_B);
+
+/* Stacked region bars */
+const regions=[ // [BM, EN, nonfin count, fin count, nonfin assets, fin assets]
+ ["China","China",14540,3048,24,65],
+ ["Eropah","Europe",7249,2041,7,14],
+ ["Asia (tanpa China)","Asia excl. China",1920,1359,3,11],
+ ["Lain-lain","Others",1901,894,4,9],
+ ["Amerika Latin & Caribbean","LAC",278,212,0.8,2],
+ ["Afrika","Africa",180,212,0.4,1]
+];
+function stacked(el,iNF,iF,fmt,unit){
+  const max=Math.max(...regions.map(r=>r[iNF]+r[iF]));
+  $(el).innerHTML=regions.map(r=>{
+    const nf=r[iNF],fi=r[iF],t=nf+fi;
+    return `<div class="brow"><div class="bl">${r[0]}<span class="en">${r[1]}</span></div>
+     <div class="track" style="width:${t/max*100}%">
+       <div class="seg" style="width:${nf/t*100}%;background:var(--soe)" data-tip="${r[0]} · bukan kewangan: ${fmt(nf)}${unit}"></div>
+       <div class="seg" style="width:${fi/t*100}%;background:var(--non)" data-tip="${r[0]} · kewangan: ${fmt(fi)}${unit}"></div>
+     </div><div class="bv">${fmt(t)}</div></div>`}).join("");
+}
+stacked("#cNum",2,3,fInt,"");
+stacked("#cAst",4,5,v=>Number.isInteger(v)?String(v):v.toFixed(1)," trilion");
+
+/* Paired bars */
+function pairs(el,rows,max,unit,dec){
+  $(el).innerHTML=rows.map(([b,e,s,n])=>`<div class="prow"><div class="pl">${b}${e?`<span class="en">${e}</span>`:""}</div>
+   ${[["SOE",s,"var(--soe)"],["Swasta",n,"var(--non)"]].map(([w,v,c])=>`<div class="pbar"><span class="who">${w}</span>
+     <div class="bt"><div class="bar" style="width:${v/max*100}%;background:${c}" data-tip="${b} · ${w}: ${dec(v)}${unit}"></div></div><span class="v">${dec(v)}${unit}</span></div>`).join("")}</div>`).join("");
+}
+pairs("#cPair",[
+ ["ROE median, purata 2013–2024","Return on equity",4.7,6.4],
+ ["Margin untung bersih median, 2024","Net profit margin",2.7,4.5],
+ ["Leveraj median, purata 2013–2024","Liabilities / assets (approx.)",62,58],
+ ["Leveraj median, 2024","Liabilities / assets",61,52],
+ ["R&D pembuatan, purata 2013–2024","Manufacturing R&D / assets",0.6,1.3]
+],70,"%",f1);
+pairs("#cProfit",[["Untung bersih median","USD million",2.8,6.8]],8," j",f1);
+pairs("#cMining",[["ROE median perlombongan","Mining ROE",10,7]],12,"%",f1);
+
+/* Governance scorecard */
+const govA=[
+ ["Pemilikan & dasar","Ownership & policy",[
+  ["Satu dasar pemilikan menyeluruh","Single government-wide ownership policy",43],
+  ["Fungsi pemilikan, dasar & kawal selia diasingkan","Separation of ownership, policy, regulation",42],
+  ["Entiti pemilikan turut membuat dasar","Ownership entity also makes policy",33,"neg"],
+  ["SOE dikawal undang-undang am + khusus SOE","Company law plus SOE-specific law",86,"info"]]],
+ ["Persaingan saksama","Level playing field",[
+  ["Rangka undang-undang sama seperti swasta","Same legal/regulatory treatment",57],
+  ["Layanan cukai sama seperti swasta","Same tax treatment",71],
+  ["Dividen: garis panduan am","Dividends: broad guidelines",49,"info"],
+  ["Dividen: bayaran minimum ditetapkan","Dividends: minimum payout",32,"info"],
+  ["Dividen dikaitkan struktur modal","Dividends linked to capital structure",16,"info"]]],
+ ["Lembaga pengarah","Boards",[
+  ["Lembaga berkuasa penuh atas strategi","Board has full authority on strategy",43],
+  ["Bilangan minimum pengarah bebas diwajibkan","Minimum independent directors required",54],
+  ["Ahli politik kanan dilarang menganggotai lembaga","Senior political office holders barred",45],
+  ["Penilaian lembaga digunakan untuk pencalonan","Board evaluations inform nominations",71],
+  ["Tiada sasaran jantina/kepelbagaian","No gender or diversity targets",29,"neg"]]]
+];
+const govB=[
+ ["Ketelusan & audit","Transparency & audit",[
+  ["Pendedahan pemegang saham utama","Major shareholdings disclosed",89],
+  ["Pendedahan struktur kumpulan","Group structures disclosed",73],
+  ["Pendedahan hak mengundi khas","Special voting rights disclosed",46],
+  ["Pendedahan perjanjian pemegang saham","Shareholder agreements disclosed",36],
+  ["Laporan risiko material (semua/sebahagian SOE)","Material risk reporting",91],
+  ["Audit luar bebas (semua/sebahagian SOE)","Independent external audit",93],
+  ["Audit dalaman diwajibkan (semua/sebahagian)","Internal audit required",87]]],
+ ["Kelestarian","Sustainability",[
+  ["Jangkaan kelestarian dalam undang-undang/dasar","Sustainability expectations set",82],
+  ["Laporan kelestarian (semua/sebahagian SOE)","Sustainability reporting required",73],
+  ["Risiko kelestarian dalam sistem risiko","Sustainability in risk management",60],
+  ["Maklumat kelestarian dalam laporan agregat","In aggregate portfolio reports",60]]]
+];
+function gov(el,groups){
+  $(el).innerHTML=groups.map(([b,e,rows])=>`<div class="gov-group"><h4>${b} <span class="en">/ ${e}</span></h4>
+   ${rows.map(([lb,le,v,k])=>{const low=!k&&v<50;return `<div class="gbar${low?" low":""}"><div class="gl">${lb}<span class="en">${le}</span></div>
+     <div class="gt"><div class="gf" style="width:${v}%;${k?"background:var(--muted)":""}" data-tip="${lb}: ${f1(v)}% bidang kuasa"></div><span class="ref"></span></div>
+     <div class="gv">${f1(v)}%</div></div>`}).join("")}</div>`).join("");
+}
+gov("#govA",govA);gov("#govB",govB);
+document.querySelectorAll("#tadbir .panel.s7, #tadbir .panel.s5").forEach(p=>p.insertAdjacentHTML("beforeend",'<div class="note">Bar kelabu = maklumat konteks (bukan amalan baik/buruk secara langsung). Sumber: Bab 2–6, Kaji Selidik OECD 2026.</div>'));
+
+/* Pillars */
+const pil=[["A. Integriti negara","Integrity of the state",75],["B. Pemilikan untuk integriti","Ownership for integrity",68],["C. Integriti SOE","SOE integrity",73],["D. Akauntabiliti SOE","SOE accountability",62]];
+$("#cPillar").innerHTML=pil.map(([b,e,v])=>`<div class="brow"><div class="bl">${b}<span class="en">${e}</span></div>
+ <div class="track" style="width:${v}%"><div class="seg" style="width:100%;background:var(--accent)" data-tip="${b}: ${f1(v)}%"></div></div><div class="bv">${f1(v)}%</div></div>`).join("");
+
+/* Gap pairs (custom labels) */
+const gaps=[["Laporan antirasuah: diwajibkan vs dijejak","SOEs must report (78%) · owner tracks reports (33%)",["Wajib lapor",78],["Dijejak",33]],
+            ["Kriteria pelantikan: lembaga vs pengurusan kanan","Board members (78%) · senior management (30%)",["Lembaga",78],["Pengurusan",30]],
+            ["Penilaian risiko rasuah peringkat portfolio","Portfolio-level risk assessment",["Dibuat",41]]];
+$("#cGap").innerHTML=gaps.map(([b,e,...rs])=>`<div class="prow"><div class="pl">${b}<span class="en">${e}</span></div>
+ ${rs.map(([w,v],i)=>`<div class="pbar"><span class="who">${w}</span><div class="bt"><div class="bar" style="width:${v}%;background:${i?"var(--warn)":"var(--accent)"}" data-tip="${w}: ${f1(v)}%"></div></div><span class="v">${f1(v)}%</span></div>`).join("")}</div>`).join("");
+
+/* Malaysia cards */
+const my=[
+ ["bad","Jurang","Tiada dasar pemilikan negara","No state ownership policy","Satu daripada 4 bidang kuasa (bersama India, Luxembourg, New Zealand) daripada 57 yang tiada dasar pemilikan.","Jadual 2.3"],
+ ["info","Konteks","Model pemilikan tersebar melalui kementerian","Dispersed ownership via line ministries","Setiap SOE diselia kementerian berkaitan; model ini digunakan oleh 26.0% bidang kuasa.","Jadual 2.4"],
+ ["warn","Perhatian","Entiti pemilikan juga membuat dasar sektor","Ownership entity also makes sector policy","Pertindihan fungsi bergantung pada sektor dan syarikat. OECD mengesyorkan pengasingan jelas fungsi pemilikan, dasar dan kawal selia.","Jadual 2.7"],
+ ["good","Selari","Lembaga berkuasa penuh menetapkan strategi","Boards have full authority over strategy","Malaysia antara 25 daripada 58 bidang kuasa yang memberi lembaga autonomi penuh untuk menetapkan strategi korporat.","Jadual 5.2"],
+ ["good","Kemajuan","Laporan agregat ad hoc diperkenalkan","Ad hoc aggregate reporting introduced","Berbanding edisi 2024, Malaysia kini menghasilkan laporan ad hoc sektor SOE; sebelum ini tiada sistem pelaporan agregat.","Rajah 2.5 · teks"],
+ ["bad","Jurang","Pampasan PSO tidak langsung, tanpa pengasingan akaun","PSO compensation indirect, no separate accounts","Malaysia antara 3 bidang kuasa (bersama China, Türkiye) yang membayar obligasi perkhidmatan awam melalui mekanisme tidak langsung atau tidak formal tanpa pengasingan perakaunan.","Jadual 3.5"],
+ ["bad","Jurang","Tiada keperluan pendedahan objektif dasar awam","No PPO/PSO disclosure requirement","Satu daripada 11 bidang kuasa (daripada 58) tanpa keperluan atau amalan pendedahan objektif dasar awam dan obligasi perkhidmatan awam.","Jadual 4.1"],
+ ["warn","Perhatian","Pengecualian Akta Persaingan 2010","Competition Act 2010 exemption","Aktiviti yang dikawal undang-undang sektor (contohnya tenaga, telekomunikasi) dikecualikan daripada Akta Persaingan 2010. Laporan menyebut ini sebagai contoh pengecualian kawal selia.","Jadual 3.2"],
+ ["info","Konteks","Entiti pemilikan dibiayai bajet dan sumber sendiri","Funded by budget and own revenue","Antara 18 bidang kuasa yang membiayai entiti pemilikan melalui gabungan bajet kerajaan dan sumber sendiri (contohnya dividen, yuran).","Jadual 2.5"],
+ ["info","Konteks","Tidak termasuk dalam kajian integriti Bab 7","Not in the Chapter 7 integrity sample","Kajian pelaksanaan Garis Panduan ACI meliputi 27 bidang kuasa sahaja; Malaysia tidak termasuk, jadi tiada data integriti khusus Malaysia.","Kotak 7.1"]
+];
+$("#myGrid").innerHTML=my.map(([c,l,b,e,ctx,s])=>`<div class="my"><span class="chip ${c}">${l}</span>
+ <div class="t">${b}<span class="en">${e}</span></div><div class="ctx">${ctx}</div><div class="src">${s}</div></div>`).join("");
+
+/* Applicability table */
+const apply=[
+ ["Dasar pemilikan","43.0% ada satu dasar pemilikan menyeluruh","bad","Tiada dasar pemilikan","Rasional dan objektif pemilikan negara tidak disatukan; inisiatif seperti GEAR-uP tertumpu pada GLIC sahaja."],
+ ["Model pemilikan","Hampir dua pertiga guna model berkoordinasi; 26.0% tersebar","warn","Tersebar melalui kementerian","Pengawasan, KPI dan pelantikan lembaga mungkin tidak seragam antara kementerian."],
+ ["Pemisahan fungsi","Hanya 42.0% mengasingkan pemilikan, dasar dan kawal selia","warn","Entiti pemilikan turut membuat dasar sektor","Risiko konflik kepentingan dan persepsi layanan istimewa dalam pasaran bersaing."],
+ ["Pampasan PSO","Kira-kira separuh: pampasan ikut kos dengan akaun berasingan","bad","Tidak langsung / tidak formal, tiada pengasingan akaun","Kos sebenar mandat sosial tidak diketahui; risiko subsidi silang dan herotan persaingan."],
+ ["Pendedahan PPO/PSO","31 daripada 58 mewajibkan semua SOE mendedahkan","bad","Tiada keperluan atau amalan","Rakyat dan Parlimen sukar menilai sama ada mandat bukan komersial dicapai."],
+ ["Persaingan saksama","57.0% kenakan rangka undang-undang sama seperti swasta","warn","Aktiviti dikawal undang-undang sektor dikecualikan daripada Akta Persaingan 2010","Pengecualian wajar untuk perkhidmatan penting, tetapi perlu dikaji semula di pasaran yang bersaing."],
+ ["Laporan agregat","Laporan tahunan agregat semakin lazim","good","Laporan ad hoc baharu diperkenalkan","Asas yang baik; boleh dikembangkan menjadi laporan tahunan menyeluruh semua SOE."],
+ ["Kuasa lembaga","43.0% beri kuasa penuh atas strategi","good","Kuasa penuh","Selari dengan Garis Panduan; perlu diimbangi pengarah bebas dan penilaian lembaga."],
+ ["Integriti (Bab 7)","27 negara dalam kajian ACI","info","Tidak menyertai kajian","Tiada data perbandingan integriti untuk Malaysia."]
+];
+const lab={good:"Selari",warn:"Perhatian",bad:"Jurang",info:"Konteks"};
+$("#applyBody").innerHTML=apply.map(([t,b,c,m,i])=>`<tr><td>${t}</td><td>${b}</td><td><span class="chip ${c}">${lab[c]}</span><br>${m}</td><td>${i}</td></tr>`).join("");
+
+/* Roadmap */
+const road=[
+ ["Jangka pendek · 0–12 bulan",[
+  ["Gubal Dasar Pemilikan Negara","Adopt a state ownership policy","Satu dokumen yang menyatakan sebab kerajaan memiliki syarikat, objektif pemilikan, peranan kementerian, GLIC dan lembaga, serta disemak berkala. Meliputi semua SOE, bukan GLIC sahaja.","Bab 2 · Jadual 2.3"],
+  ["Wajibkan pendedahan objektif dasar awam dan bantuan negara","Require PPO/PSO and state-support disclosure","Setiap SOE mendedahkan mandat bukan komersial, kos dan sokongan kerajaan (geran, suntikan modal, jaminan) dalam laporan tahunan.","Bab 3–4 · Jadual 4.1"],
+  ["Jadikan laporan agregat tahunan","Make aggregate reporting annual","Bina daripada Laporan Kad GEAR-uP: liputi semua SOE, termasuk kewangan, tadbir urus, komposisi lembaga, pekerjaan dan kelestarian.","Bab 2 · Rajah 2.5–2.6"]]],
+ ["Jangka sederhana · 1–3 tahun",[
+  ["Pampasan PSO ikut kos dengan akaun berasingan","Cost-based PSO compensation with separate accounts","Kenal pasti kos bersih setiap obligasi perkhidmatan awam, bayar secara telus melalui bajet, dan asingkan akaun aktiviti komersial dan bukan komersial.","Bab 3 · Jadual 3.5"],
+  ["Wujudkan unit penyelaras pemilikan","Set up a co-ordinating ownership unit","Satu unit (contohnya di MOF) menetapkan KPI, memantau prestasi dan menyelaras pelantikan lembaga bagi SOE di bawah semua kementerian.","Bab 2 · Rajah 2.2–2.3"],
+  ["Asingkan fungsi pemilikan dan kawal selia","Separate ownership from regulation","Dalam sektor yang ada pesaing swasta, pastikan kementerian atau agensi yang memiliki SOE tidak juga mengawal selia sektor itu.","Bab 2 · Jadual 2.6–2.7"],
+  ["Perkukuh kebebasan lembaga","Strengthen board independence","Tetapkan bilangan minimum pengarah bebas, larang ahli politik kanan aktif, dan gunakan penilaian lembaga untuk pencalonan.","Bab 5 · Rajah 5.3, 5.5"]]],
+ ["Berterusan",[
+  ["Kaji semula pengecualian persaingan","Review competition-law exemptions","Nilai semula pengecualian di bawah Akta Persaingan 2010 bagi SOE yang beroperasi dalam pasaran bersaing.","Bab 3 · Jadual 3.1–3.2"],
+  ["Sertai pemantauan integriti OECD","Join OECD integrity monitoring","Sertai kajian pelaksanaan Garis Panduan ACI dan pastikan laporan integriti SOE dijejak, bukan sekadar diterima.","Bab 7 · Jadual 7.2"],
+  ["Ukur disiplin modal ketika GEAR-uP disalurkan","Track capital discipline as GEAR-uP deploys","Pantau pulangan, leveraj dan pelaburan bersih berbanding susut nilai, selaras dengan bukti global bahawa SOE kurang untung dan kurang melabur.","Bab 1 · Rajah 1.15, 1.22"]]]
+];
+let n=0;
+$("#road").innerHTML=road.map(([ph,steps])=>`<div class="phase">${ph}</div>`+steps.map(([t,e,d,r])=>{n++;return `<div class="step"><div class="no">${String(n).padStart(2,"0")}</div>
+ <div class="st">${t}<span class="en">${e}</span></div><span class="chip info when">${ph.split(" · ")[0]}</span><div class="sd">${d}</div><div class="sr">Rujukan OECD: ${r}</div></div>`}).join("")).join("");
+
+/* Tooltip */
+const tip=$("#tip");
+document.addEventListener("pointermove",ev=>{
+  const t=ev.target.closest("[data-tip]");
+  if(!t){tip.hidden=true;return}
+  tip.textContent=t.dataset.tip;tip.hidden=false;
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  let x=ev.clientX+12,y=ev.clientY-h-10;
+  if(x+w>innerWidth-8)x=innerWidth-w-8; if(y<8)y=ev.clientY+16;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+});
+document.addEventListener("pointerleave",()=>tip.hidden=true);
+
+/* Active nav */
+const links=[...document.querySelectorAll(".nav a")];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id))}}),{rootMargin:"-40% 0px -55% 0px"});
+document.querySelectorAll("section[id]").forEach(s=>io.observe(s));
+</script>
