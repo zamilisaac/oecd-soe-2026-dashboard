@@ -1,0 +1,677 @@
+<style>
+.sg{max-width:1200px;margin-inline:auto;font-family:var(--font-anthropic-sans);display:grid;gap:var(--cds-gap-lg)}
+.sg .en{color:var(--color-fg-muted);font-weight:400}
+.sg .num{font-variant-numeric:tabular-nums}
+.sg-head{display:grid;gap:var(--cds-gap-xs)}
+.sg-eyebrow{font-size:var(--cds-font-size-caption);letter-spacing:.06em;text-transform:uppercase;color:var(--color-fg-muted)}
+.sg-title{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.2;margin:0;text-wrap:balance}
+.sg-take{font-size:var(--cds-font-size-body);color:var(--color-fg-muted);margin:0;max-width:80ch}
+.sg-meta{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-tabs{display:flex;gap:var(--cds-gap-xs);overflow-x:auto;border-bottom:1px solid var(--color-border-line);scrollbar-width:none}
+.sg-tabs button{flex:none;font:inherit;font-size:var(--cds-font-size-body);background:none;border:0;border-bottom:2px solid transparent;color:var(--color-fg-muted);padding:var(--cds-pad-sm) var(--cds-pad-md);cursor:pointer;white-space:nowrap}
+.sg-tabs button[aria-selected="true"]{color:var(--color-fg);border-bottom-color:var(--color-fg)}
+.sg-tabs button:focus-visible{outline:2px solid var(--color-fg);outline-offset:-2px}
+.sg-panel{display:grid;gap:var(--cds-gap-md)}
+.sg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--cds-gap-md)}
+.sg-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--cds-gap-md)}
+.sg-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);display:flex;flex-direction:column;gap:var(--cds-gap-sm);min-width:0;position:relative}
+.sg-card h3{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0;line-height:1.3}
+.sg-card h3 .en{display:block;font-size:var(--cds-font-size-caption)}
+.sg-note{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin:0}
+.sg-sec{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:var(--cds-gap-sm) 0 0}
+.sg-sec .en{font-size:var(--cds-font-size-body);margin-left:6px}
+.sg-kpi .lab{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-kpi .val{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.1;font-variant-numeric:tabular-nums}
+.sg-kpi .unit{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin-left:4px}
+.sg-kpi .sub{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sg-rows{display:grid;gap:8px;min-height:40px}
+.sg-row{display:grid;grid-template-columns:minmax(80px,38%) minmax(0,1fr) 64px;gap:10px;align-items:center;font-size:var(--cds-font-size-caption)}
+.sg-row .l{line-height:1.25;min-width:0}
+.sg-row .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.sg-track{height:14px;display:flex;gap:2px;position:relative}
+.sg-bg{background:color-mix(in srgb,var(--color-fg) 8%,transparent);border-radius:0 4px 4px 0}
+.sg-seg{height:100%;min-width:2px}
+.sg-seg:last-child{border-radius:0 4px 4px 0}
+.sg-ref{position:absolute;top:-3px;bottom:-3px;left:50%;border-left:1px dashed var(--cds-chart-reference)}
+.sg-pair{display:grid;gap:4px}
+.sg-pair .pl{font-size:var(--cds-font-size-caption);font-weight:600}
+.sg-pair .pl .en{font-weight:400;margin-left:4px}
+.sg-pbar{display:grid;grid-template-columns:56px minmax(0,1fr) 64px;gap:8px;align-items:center;font-size:var(--cds-font-size-caption)}
+.sg-pbar .v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.sg-list{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.sg-list li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;font-size:var(--cds-font-size-body)}
+.sg-list li .en{display:block;font-size:var(--cds-font-size-caption)}
+.sg-dot{width:10px;height:10px;border-radius:50%;margin-top:6px}
+.sg-chip{display:inline-flex;align-items:center;gap:5px;width:fit-content;font-size:var(--cds-font-size-caption);font-weight:600;padding:1px 9px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.sg-chip.good{color:var(--color-ok)}.sg-chip.warn{color:var(--color-warn)}.sg-chip.bad{color:var(--color-bad)}.sg-chip.info{color:var(--color-fg-muted)}
+.sg-tw{overflow-x:auto}
+.sg-table{border-collapse:collapse;width:100%;font-size:var(--cds-font-size-caption);font-variant-numeric:tabular-nums}
+.sg-table th,.sg-table td{padding:8px 10px;border-bottom:1px solid var(--color-border-line);text-align:left;vertical-align:top}
+.sg-table th{color:var(--color-fg-muted);font-weight:600}
+.sg-table td.r,.sg-table th.r{text-align:right;white-space:nowrap}
+.sg-table.wide td{min-width:140px}
+.sg-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:var(--cds-gap-md)}
+.sg-mini .t{font-weight:600;font-size:var(--cds-font-size-body);line-height:1.35}
+.sg-mini .t .en{display:block;font-size:var(--cds-font-size-caption);font-weight:400}
+.sg-mini .d{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-ref-t{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);font-variant-numeric:tabular-nums}
+.sg-models{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:var(--cds-gap-sm)}
+.sg-model{border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-sm) var(--cds-pad-md);display:grid;gap:4px}
+.sg-model.on{border-color:var(--color-fg)}
+.sg-model .mv{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-title);font-variant-numeric:tabular-nums}
+.sg-step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:4px 12px}
+.sg-step .no{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-title);color:var(--color-fg-muted);line-height:1}
+.sg-step .d,.sg-step .r{grid-column:2}
+.sg-phase{font-size:var(--cds-font-size-caption);letter-spacing:.06em;text-transform:uppercase;color:var(--color-fg-muted);margin-top:var(--cds-gap-sm)}
+.sg-banner{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.sg-tip{position:absolute;z-index:5;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);max-width:240px}
+.sg-tip .k{color:var(--cds-text-secondary)}
+.sg-fail{display:flex;align-items:center;justify-content:center;gap:8px;min-height:60px;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-fail::before{content:"";width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+[data-dash-source-state=empty]{color:transparent}
+[data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+.sg-foot{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);border-top:1px solid var(--color-border-line);padding-top:var(--cds-pad-md)}
+
+/* ===== Colour layer: vivid accents on theme surfaces ===== */
+.sg{--c-navy:#0b2f57;--c-blue:#2563eb;--c-teal:#0d9488;--c-orange:#ea580c;--c-violet:#7c3aed;--c-rose:#e11d48;--c-gold:#d97706;--c-green:#16a34a;--c-red:#cc0001;--acc:var(--c-blue)}
+.sg-hero{background:linear-gradient(118deg,#0b2f57 0%,#123f73 45%,#0e6a7e 100%);color:#fff;border-radius:calc(var(--cds-radius)*1.5);padding:var(--cds-pad-xl) var(--cds-pad-xl) calc(var(--cds-pad-xl) + 6px);position:relative;overflow:hidden;gap:var(--cds-gap-sm)}
+.sg-hero::before{content:"";position:absolute;right:-70px;top:-90px;width:300px;height:300px;border-radius:50%;border:46px solid rgba(250,204,21,.16)}
+.sg-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,#cc0001 0 25%,#ffffff 25% 33%,#facc15 33% 66%,#2563eb 66% 100%)}
+.sg-hero .sg-eyebrow{color:#facc15;font-weight:600}
+.sg-hero .sg-title{color:#fff;position:relative}
+.sg-hero .sg-take{color:#dbe7f5;position:relative}
+.sg-hero .sg-meta{color:#a9c1dd;position:relative}
+.sg-hero .sg-meta i{color:#dbe7f5}
+.sg-badges{display:flex;flex-wrap:wrap;gap:6px;position:relative}
+.sg-badge{font-size:var(--cds-font-size-caption);font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.sg-badge.gold{background:#facc15;color:#0b2f57;border-color:#facc15}
+.sg-tabs{border-bottom:0;gap:8px;padding-bottom:2px}
+.sg-tabs button{border:1px solid var(--color-border-line);border-radius:999px;padding:7px 14px;display:inline-flex;align-items:center;gap:8px;background:var(--color-panel)}
+.sg-tabs button::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--acc)}
+.sg-tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.sg-tabs button[aria-selected="true"]::before{background:#fff}
+.sg-tabs button:hover{border-color:var(--acc)}
+[data-tab="ringkasan"],#ringkasan{--acc:var(--c-blue)}
+[data-tab="global"],#global{--acc:var(--c-teal)}
+[data-tab="prestasi"],#prestasi{--acc:var(--c-orange)}
+[data-tab="tadbir"],#tadbir{--acc:var(--c-violet)}
+[data-tab="integriti"],#integriti{--acc:var(--c-rose)}
+[data-tab="malaysia"],#malaysia{--acc:var(--c-gold)}
+.sg-panel .sg-card{border-top:3px solid var(--acc)}
+.sg-card h3{display:block}
+.sg-panel > .sg-take{background:color-mix(in srgb,var(--acc) 10%,var(--color-panel));border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);border-radius:var(--cds-radius);padding:var(--cds-pad-sm) var(--cds-pad-md);color:var(--color-fg);max-width:none}
+.sg-kpis .sg-kpi{--k:var(--acc);border-top:4px solid var(--k);background:color-mix(in srgb,var(--k) 9%,var(--color-panel))}
+#kpis .sg-kpi:nth-child(1){--k:var(--c-blue)}#kpis .sg-kpi:nth-child(2){--k:var(--c-teal)}#kpis .sg-kpi:nth-child(3){--k:var(--c-orange)}#kpis .sg-kpi:nth-child(4){--k:var(--c-violet)}#kpis .sg-kpi:nth-child(5){--k:var(--c-gold)}
+#myCtx .sg-kpi:nth-child(4n+1){--k:var(--c-blue)}#myCtx .sg-kpi:nth-child(4n+2){--k:var(--c-teal)}#myCtx .sg-kpi:nth-child(4n+3){--k:var(--c-orange)}#myCtx .sg-kpi:nth-child(4n+4){--k:var(--c-violet)}
+.sg-kpi .val{color:color-mix(in srgb,var(--k) 78%,var(--color-fg))}
+.sg-kpi .lab{color:var(--color-fg);font-weight:600}
+.sg-card.hi{border-top-color:var(--c-green);background:color-mix(in srgb,var(--c-green) 7%,var(--color-panel))}
+.sg-card.co{border-top-color:var(--c-rose);background:color-mix(in srgb,var(--c-rose) 7%,var(--color-panel))}
+.sg-card.hi h3{color:color-mix(in srgb,var(--c-green) 80%,var(--color-fg))}
+.sg-card.co h3{color:color-mix(in srgb,var(--c-rose) 80%,var(--color-fg))}
+.sg-gov[data-g="own"]{--acc:var(--c-blue)}.sg-gov[data-g="lpf"]{--acc:var(--c-teal)}.sg-gov[data-g="brd"]{--acc:var(--c-violet)}.sg-gov[data-g="dis"]{--acc:var(--c-orange)}.sg-gov[data-g="sus"]{--acc:var(--c-green)}
+.sg-gov h3{color:color-mix(in srgb,var(--acc) 80%,var(--color-fg))}
+.sg-model{background:color-mix(in srgb,var(--m) 10%,var(--color-panel));border-color:color-mix(in srgb,var(--m) 40%,transparent);border-top:4px solid var(--m)}
+.sg-model .mv{color:color-mix(in srgb,var(--m) 80%,var(--color-fg))}
+.sg-model.on{box-shadow:0 0 0 2px var(--c-gold)}
+.sg-chip{border:0;padding:2px 10px}
+.sg-chip.good{background:color-mix(in srgb,var(--c-green) 16%,transparent)}
+.sg-chip.warn{background:color-mix(in srgb,var(--c-gold) 18%,transparent)}
+.sg-chip.bad{background:color-mix(in srgb,var(--c-rose) 15%,transparent)}
+.sg-chip.info{background:color-mix(in srgb,var(--c-blue) 13%,transparent);color:color-mix(in srgb,var(--c-blue) 75%,var(--color-fg))}
+.sg-mini{border-top-width:3px}
+.sg-mini.s-good{border-top-color:var(--c-green)}.sg-mini.s-warn{border-top-color:var(--c-gold)}.sg-mini.s-bad{border-top-color:var(--c-rose)}.sg-mini.s-info{border-top-color:var(--c-blue)}
+.sg-mybar{height:6px;border-radius:999px;background:linear-gradient(90deg,#cc0001 0 25%,#facc15 25% 50%,#2563eb 50% 75%,#0b2f57 75% 100%)}
+.sg-sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.sg-sec .lt{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:8px;background:var(--lc,var(--c-gold));color:#fff;font-weight:700;font-size:var(--cds-font-size-body);align-self:center}
+.sg-sec .en{margin-left:0}
+.sg-phase{display:inline-block;color:#fff;background:var(--ph);border-radius:999px;padding:3px 12px;letter-spacing:.04em;font-weight:600}
+.sg-step .no{color:color-mix(in srgb,var(--ph) 80%,var(--color-fg))}
+.sg-dot{box-shadow:0 0 0 3px color-mix(in srgb,currentColor 0%,transparent)}
+
+
+/* ===== Motion layer ===== */
+.sg-replay{position:relative;margin-left:auto;font:inherit;font-size:var(--cds-font-size-caption);font-weight:600;color:#0b2f57;background:#facc15;border:0;border-radius:999px;padding:5px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.sg-replay:hover{background:#fde047}
+.sg-replay:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.sg-card{transition:transform var(--cds-dur-slow) var(--cds-ease-out),box-shadow var(--cds-dur-slow) var(--cds-ease-out)}
+.sg-tabs button{transition:background-color var(--cds-dur-slow) var(--cds-ease-out),color var(--cds-dur-slow),border-color var(--cds-dur-slow)}
+@media (prefers-reduced-motion: no-preference){
+  .sg-hero{background-size:220% 220%;animation:sgHero 16s ease-in-out infinite alternate}
+  .sg-hero::before{animation:sgRing 9s ease-in-out infinite alternate}
+  .sg-hero.play::after{animation:sgStripe 1.1s var(--cds-ease-out) both;transform-origin:left}
+  .sg-hero.play .sg-eyebrow,.sg-hero.play .sg-title,.sg-hero.play .sg-take,.sg-hero.play .sg-badges,.sg-hero.play .sg-meta{animation:sgUp .8s var(--cds-ease-out) both}
+  .sg-hero.play .sg-title{animation-delay:.08s}.sg-hero.play .sg-take{animation-delay:.18s}.sg-hero.play .sg-badges{animation-delay:.28s}.sg-hero.play .sg-meta{animation-delay:.36s}
+  .sg-hero.play .sg-badge{animation:sgPop .5s var(--cds-ease-out) both;animation-delay:calc(.35s + var(--i,0)*.08s)}
+  .sg-panel.play .sg-card,.sg-panel.play .sg-sec,.sg-panel.play > .sg-take,.sg-panel.play .sg-mybar{animation:sgUp .7s var(--cds-ease-out) both;animation-delay:calc(var(--i,0)*70ms)}
+  .sg-panel.play .sg-mybar{animation-name:sgStripe;transform-origin:left}
+  .sg-panel.play .sg-seg{animation:sgGrow 1.1s var(--cds-ease-out) both;transform-origin:left;animation-delay:calc(.25s + var(--i,0)*70ms)}
+  .sg-panel.play .sg-list li,.sg-panel.play .sg-step,.sg-panel.play .sg-table tbody tr{animation:sgSide .6s var(--cds-ease-out) both;animation-delay:calc(.2s + var(--j,0)*60ms)}
+  .sg-panel.play .sg-chip,.sg-panel.play .sg-phase{animation:sgPop .5s var(--cds-ease-out) both;animation-delay:calc(.45s + var(--j,0)*50ms)}
+  .sg-panel.play .sg-model{animation:sgPop .6s var(--cds-ease-out) both;animation-delay:calc(.2s + var(--j,0)*90ms)}
+  .sg-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -14px color-mix(in srgb,var(--acc) 70%,transparent)}
+  .sg-tabs button[data-tab="malaysia"]:not([aria-selected="true"])::before{animation:sgPulse 1.8s ease-in-out infinite}
+  .sg-kpi .val.counting{text-shadow:0 0 18px color-mix(in srgb,var(--k) 35%,transparent)}
+}
+@keyframes sgHero{0%{background-position:0% 40%}100%{background-position:100% 60%}}
+@keyframes sgRing{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-30px,18px) scale(1.12)}}
+@keyframes sgStripe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes sgUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes sgSide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+@keyframes sgGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes sgPop{0%{opacity:0;transform:scale(.7)}70%{transform:scale(1.06)}100%{opacity:1;transform:none}}
+@keyframes sgPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 60%,transparent)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--acc) 0%,transparent)}}
+
+.sg-foot ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
+
+/* ===== Visual layer: charts that build themselves ===== */
+.sg-viz{min-height:40px;position:relative}
+.sg-viz svg{display:block;width:100%;height:auto;max-width:var(--mw,560px);margin-inline:auto;overflow:visible}
+.sg-viz text{fill:var(--color-fg);font-size:12px;font-family:var(--font-anthropic-sans)}
+.sg-viz text.tm{fill:var(--color-fg-muted)}
+.sg-viz text.tb{font-weight:600}
+.sg-viz text.big{font-family:var(--font-anthropic-serif);font-size:22px}
+.sg-viz .trk{fill:none;stroke:var(--cds-chart-muted)}
+.sg-viz .trkl{stroke:color-mix(in srgb,var(--color-fg) 12%,transparent);stroke-width:6;stroke-linecap:round}
+.sg-viz .ref{stroke:var(--cds-chart-reference);stroke-dasharray:3 3}
+.sg-how{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);margin:0;display:flex;gap:6px;align-items:baseline}
+.sg-how::before{content:"Cara baca";flex:none;font-weight:600;color:var(--acc);text-transform:uppercase;letter-spacing:.05em;font-size:.85em}
+.sg-sub{font-size:var(--cds-font-size-caption);font-weight:600;color:var(--color-fg-muted);text-transform:uppercase;letter-spacing:.05em}
+/* waffle */
+.sg-waffle{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;width:min(100%,280px);margin-inline:auto}
+.sg-waffle i{aspect-ratio:1;border-radius:4px;display:block}
+/* donuts and gauges */
+.sg-donuts,.sg-gauges{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8.5rem),1fr));gap:var(--cds-gap-sm)}
+.sg-donut,.sg-gauge{margin:0;display:grid;gap:4px;justify-items:center;text-align:center;font-size:var(--cds-font-size-caption);line-height:1.3}
+.sg-donut svg{max-width:120px}.sg-gauge svg{max-width:170px}
+.sg-donut .en,.sg-gauge .en{display:block}
+.sg-donut circle,.sg-gauge path,.sg-ring circle{fill:none}
+/* small multiples and deltas */
+.sg-sm{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:var(--cds-gap-sm)}
+.sg-sm figure{margin:0;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:8px;display:grid;gap:4px;font-size:var(--cds-font-size-caption);line-height:1.3}
+.sg-sm figure .en{display:block}
+.sg-sm svg{max-width:170px}
+.sg-deltas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:var(--cds-gap-sm)}
+.sg-delta{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;padding:8px 12px;border-radius:var(--cds-radius);background:color-mix(in srgb,var(--dc) 10%,var(--color-panel));border:1px solid color-mix(in srgb,var(--dc) 35%,transparent);font-size:var(--cds-font-size-caption)}
+.sg-delta .ar{grid-row:span 2;font-size:22px;color:var(--dc);line-height:1}
+.sg-delta b{font-size:var(--cds-font-size-body);font-variant-numeric:tabular-nums}
+.sg-call{display:flex;gap:12px;align-items:center;padding:10px 14px;border-radius:var(--cds-radius);background:color-mix(in srgb,var(--acc) 10%,var(--color-panel));font-size:var(--cds-font-size-caption)}
+.sg-call .val{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-title);color:color-mix(in srgb,var(--acc) 80%,var(--color-fg));font-variant-numeric:tabular-nums;line-height:1}
+.sg-g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--cds-gap-md);align-items:center}
+.sg-modelwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:var(--cds-gap-md);align-items:center}
+/* findings scorecard */
+.sg-score{display:flex;flex-wrap:wrap;gap:var(--cds-gap-md)}
+.sg-sgroup{display:grid;gap:6px;min-width:7rem}
+.sg-sgroup .cnt{font-family:var(--font-anthropic-serif);font-size:var(--cds-font-size-title);line-height:1;color:var(--sc)}
+.sg-sgroup .lb{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sg-tiles{display:flex;gap:5px}
+.sg-tiles i{width:26px;height:26px;border-radius:6px;background:var(--sc);display:block}
+/* roadmap rail */
+#road{position:relative}
+#road::before{content:"";position:absolute;left:19px;top:44px;bottom:12px;width:3px;border-radius:2px;background:linear-gradient(var(--c-blue),var(--c-violet),var(--c-gold));opacity:.5}
+.sg-step .no{position:relative;z-index:1;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:var(--cds-font-size-body);font-family:var(--font-anthropic-sans);font-weight:700;background:color-mix(in srgb,var(--ph) 16%,var(--color-panel));border:2px solid var(--ph)}
+/* hero skyline (decorative) */
+.sg-sky{position:absolute;right:28px;bottom:6px;width:min(36%,300px);height:auto;opacity:.24;pointer-events:none}
+.sg-sky rect{fill:#fff}.sg-sky .g{fill:#facc15}
+@media (max-width:700px){.sg-sky{display:none}}
+.sg-viz .va,.sg-sky rect{transform-box:fill-box}
+@media (prefers-reduced-motion: no-preference){
+  .sg-viz:not(.go) .va{opacity:0}
+  .sg-viz.go .va{animation-duration:.9s;animation-timing-function:var(--cds-ease-out);animation-fill-mode:both;animation-delay:var(--d,0ms)}
+  .sg-viz.go .va-pop{animation-name:vPop;transform-origin:center}
+  .sg-viz.go .va-rise{animation-name:vRise;transform-origin:bottom}
+  .sg-viz.go .va-grow{animation-name:vGrow;transform-origin:left}
+  .sg-viz.go .va-fade{animation-name:vFade}
+  .sg-viz.go .va-draw{animation-name:vDraw;animation-duration:1.1s}
+  .sg-viz.go .va-sweep{animation-name:vSweep;animation-duration:1.3s}
+  .sg-hero.play .sg-sky rect{animation:vRise .9s var(--cds-ease-out) both;transform-origin:bottom;animation-delay:calc(var(--k,0)*70ms)}
+  .sg-panel.play #road::before{animation:vRiseTop 1.6s var(--cds-ease-out) both;transform-origin:top;animation-delay:.2s}
+}
+.va-draw{stroke-dasharray:1}
+@keyframes vPop{0%{opacity:0;transform:scale(.2)}70%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:none}}
+@keyframes vRise{from{transform:scaleY(0)}to{transform:none}}
+@keyframes vRiseTop{from{transform:scaleY(0)}to{transform:none}}
+@keyframes vGrow{from{transform:scaleX(0)}to{transform:none}}
+@keyframes vFade{from{opacity:0}to{opacity:1}}
+@keyframes vDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes vSweep{from{stroke-dasharray:0 100}}
+</style>
+
+<div class="sg">
+  <header class="sg-head sg-hero" id="top">
+    <svg class="sg-sky" viewBox="0 0 240 120" aria-hidden="true"><rect x="0" y="74" width="22" height="46" rx="2" style="--k:0"/><rect x="26" y="50" width="18" height="70" rx="2" style="--k:1"/><rect x="48" y="62" width="26" height="58" rx="2" style="--k:2"/><rect x="78" y="28" width="20" height="92" rx="2" style="--k:3"/><rect x="102" y="8" width="30" height="112" rx="2" style="--k:4" class="g"/><rect x="136" y="40" width="22" height="80" rx="2" style="--k:5"/><rect x="162" y="58" width="26" height="62" rx="2" style="--k:6"/><rect x="192" y="32" width="18" height="88" rx="2" style="--k:7"/><rect x="214" y="70" width="24" height="50" rx="2" style="--k:8"/></svg>
+    <div class="sg-eyebrow">Ringkasan laporan OECD · Report digest · Edisi visual beranimasi</div>
+    <h1 class="sg-title">Pemilikan &amp; Tadbir Urus Syarikat Milik Kerajaan 2026</h1>
+    <p class="sg-take" id="takeaway" data-source="headline"><span class="dash-skeleton">—</span></p>
+    <div class="sg-badges"><span class="sg-badge gold">OECD 2026</span><span class="sg-badge">Semua bab</span><span class="sg-badge">Fokus Malaysia</span><span class="sg-badge">BM / EN</span><button class="sg-replay" id="replay" type="button" aria-label="Main semula animasi">▶ Main semula</button></div>
+    <div class="sg-meta">Sumber: OECD (2026), <i>Ownership and Governance of State-Owned Enterprises</i>, doi.org/10.1787/b72bf04c-en · Dikemas kini 23 Okt 2026 · BM / EN</div>
+  </header>
+
+  <div class="sg-tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="ringkasan" aria-selected="true">Ringkasan</button>
+    <button role="tab" data-tab="global" aria-selected="false">Landskap global</button>
+    <button role="tab" data-tab="prestasi" aria-selected="false">SOE vs swasta</button>
+    <button role="tab" data-tab="tadbir" aria-selected="false">Tadbir urus</button>
+    <button role="tab" data-tab="integriti" aria-selected="false">Integriti</button>
+    <button role="tab" data-tab="malaysia" aria-selected="false">Malaysia</button>
+  </div>
+
+  <!-- Summary -->
+  <section class="sg-panel" id="ringkasan" role="tabpanel">
+    <div class="sg-kpis" id="kpis">
+      <div class="sg-card sg-kpi"><div class="lab">Bilangan SOE besar <span class="en">· Large SOEs, 2024</span></div><div><span class="val dash-skeleton" data-source="headline" data-field="value" data-where="id=soe_count">—</span></div><div class="sub" data-source="headline" data-field="note" data-where="id=soe_count">—</div></div>
+      <div class="sg-card sg-kpi"><div class="lab">Jumlah aset <span class="en">· Assets, 2024</span></div><div><span class="val dash-skeleton" data-source="headline" data-field="value" data-where="id=assets">—</span><span class="unit" data-source="headline" data-field="unit" data-where="id=assets">—</span></div><div class="sub" data-source="headline" data-field="note" data-where="id=assets">—</div></div>
+      <div class="sg-card sg-kpi"><div class="lab">Pekerjaan <span class="en">· Employment, 2024</span></div><div><span class="val dash-skeleton" data-source="headline" data-field="value" data-where="id=employment">—</span><span class="unit" data-source="headline" data-field="unit" data-where="id=employment">—</span></div><div class="sub" data-source="headline" data-field="note" data-where="id=employment">—</div></div>
+      <div class="sg-card sg-kpi"><div class="lab">SOE bukan kewangan <span class="en">· Non-financial</span></div><div><span class="val dash-skeleton" data-source="headline" data-field="value" data-where="id=nf_soe">—</span></div><div class="sub" data-source="headline" data-field="note" data-where="id=nf_soe">—</div></div>
+      <div class="sg-card sg-kpi"><div class="lab">Bidang kuasa dikaji <span class="en">· Jurisdictions</span></div><div><span class="val dash-skeleton" data-source="headline" data-field="value" data-where="id=jurisdictions">—</span></div><div class="sub" data-source="headline" data-field="note" data-where="id=jurisdictions">—</div></div>
+    </div>
+    <div class="sg-grid">
+      <div class="sg-card"><h3>Satu petak = 1% SOE besar dunia<span class="en">Every large SOE in 2024 as 100 squares (Figure 1.1)</span></h3>
+        <div class="sg-legend"><span><span class="sg-sw" id="swW1"></span>Bukan kewangan / Non-financial</span><span><span class="sg-sw" id="swW2"></span>Kewangan / Financial</span></div>
+        <div class="sg-viz sg-waffle" id="waffle" data-source="regions"></div>
+        <p class="sg-note" id="waffleCap" data-source="regions"></p></div>
+      <div class="sg-card" id="emCard"><h3>Ekonomi sedang pesat menguasai jejak SOE<span class="en">Emerging economies' share of the SOE footprint, 2024 (Figure 1.1)</span></h3>
+        <div class="sg-legend"><span><span class="sg-sw" id="swE1"></span>Sedang pesat / Emerging</span><span><span class="sg-sw" style="background:var(--cds-chart-muted)"></span>Maju / Advanced</span></div>
+        <div class="sg-viz sg-donuts" id="emDonuts" data-source="emerging"></div>
+        <p class="sg-how">Bahagian berwarna setiap gelang ialah syer ekonomi sedang pesat.</p></div>
+    </div>
+    <div class="sg-grid">
+      <div class="sg-card hi"><h3>Sorotan utama<span class="en">Key highlights</span></h3><ul class="sg-list" id="hiList" data-source="highlights"></ul></div>
+      <div class="sg-card co"><h3>Isu yang membimbangkan<span class="en">Key concerns</span></h3><ul class="sg-list" id="coList" data-source="highlights"></ul></div>
+    </div>
+  </section>
+
+  <!-- Global -->
+  <section class="sg-panel" id="global" role="tabpanel" hidden>
+    <div class="sg-card"><h3>Di mana SOE berada<span class="en">Large SOEs by region, 2024 (Figure 1.1)</span></h3>
+      <div class="sg-legend"><span><span class="sg-sw" id="swB1"></span>Semua SOE / All</span><span><span class="sg-sw" id="swB2"></span>Daripadanya kewangan / Of which financial</span></div>
+      <div class="sg-viz" id="bubbles" data-source="regions"></div>
+      <p class="sg-how">Luas bulatan mewakili bilangan SOE; bulatan dalam ialah SOE kewangan.</p>
+      <p class="sg-note" id="bubCap" data-source="regions"></p></div>
+    <div class="sg-grid">
+      <div class="sg-card"><h3>Bilangan SOE mengikut rantau, 2024<span class="en">Number of SOEs by region (Figure 1.1)</span></h3>
+        <div class="sg-legend"><span><span class="sg-sw" id="swR1"></span>Bukan kewangan / Non-financial</span><span><span class="sg-sw" id="swR2"></span>Kewangan / Financial</span></div>
+        <div class="sg-rows" id="regNum" data-source="regions"></div></div>
+      <div class="sg-card"><h3>Aset SOE mengikut rantau, USD trilion<span class="en">Total SOE assets by region, 2024 (as reported, rounded)</span></h3>
+        <div class="sg-legend"><span><span class="sg-sw" id="swR3"></span>Bukan kewangan / Non-financial</span><span><span class="sg-sw" id="swR4"></span>Kewangan / Financial</span></div>
+        <div class="sg-rows" id="regAst" data-source="regions"></div></div>
+    </div>
+    <div class="sg-card"><h3>Peralihan 2013 → 2024<span class="en">How the SOE landscape shifted. OECD notes part of the change reflects sample coverage.</span></h3>
+      <div class="sg-g2"><div><div class="sg-viz" id="slope" data-source="shifts"></div><div class="sg-legend" id="slopeLeg" data-source="shifts"></div></div><div class="sg-viz" id="growCol" data-source="shifts"></div></div>
+      <p class="sg-how">Setiap garis menghubungkan nilai 2013 ke 2024; garis menurun bermaksud syer mengecil.</p>
+      <div class="sg-tw"><table class="sg-table" id="shiftTbl" data-source="shifts" data-row-key="indicator_en">
+        <thead><tr><th data-field="indicator_bm">Petunjuk / Indicator</th><th class="r" data-field="v2013">2013</th><th class="r" data-field="v2024">2024</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+
+  <!-- SOE vs private -->
+  <section class="sg-panel" id="prestasi" role="tabpanel" hidden>
+    <div class="sg-grid">
+      <div class="sg-card"><h3>SOE berbanding syarikat swasta (median)<span class="en">Six industries: construction, manufacturing, mining, real estate, services, wholesale trade</span></h3>
+        <div class="sg-legend"><span><span class="sg-sw" id="swC1"></span>SOE</span><span><span class="sg-sw" id="swC2"></span>Swasta / Non-SOE</span></div>
+        <div class="sg-sub">Keuntungan &amp; R&amp;D</div><div class="sg-viz" id="dumbA" data-source="compare"></div>
+        <div class="sg-sub">Leveraj (paksi 0–100%)</div><div class="sg-viz" id="dumbB" data-source="compare"></div>
+        <div class="sg-viz" id="npCall" data-source="compare"></div>
+        <p class="sg-how">Jarak antara dua titik ialah jurang SOE berbanding swasta.</p>
+        <p class="sg-note">SOE kurang untung dan lebih berhutang. Perlombongan ialah pengecualian: SOE mengatasi swasta. Sumber: Rajah 1.15, 1.18, 1.21.</p></div>
+      <div class="sg-card"><h3>Trend prestasi serantau<span class="en">Regional performance trends, 2013 → 2024 (Figures 1.8, 1.9)</span></h3>
+        <div class="sg-viz sg-sm" id="trendSm" data-source="trends"></div>
+        <div class="sg-viz sg-deltas" id="levChips" data-source="trends"></div>
+        <div class="sg-tw"><table class="sg-table" id="trendTbl" data-source="trends" data-row-key="id">
+          <thead><tr><th data-field="indicator_bm">Petunjuk</th><th class="r" data-field="v2013">2013</th><th class="r" data-field="v2024">2024</th><th class="r" data-field="change_pp">Ubah (m.p.)</th><th data-field="direction_bm">Arah</th></tr></thead><tbody></tbody></table></div>
+        <p class="sg-note">m.p. = mata peratusan. Prestasi Afrika dan Amerika Latin banyak dipacu syarikat perlombongan.</p></div>
+    </div>
+  </section>
+
+  <!-- Governance -->
+  <section class="sg-panel" id="tadbir" role="tabpanel" hidden>
+    <p class="sg-take">Peratus bidang kuasa yang melaporkan setiap amalan. Bar berwarna amaran = amalan baik yang diterima pakai kurang separuh bidang kuasa; bar kelabu = konteks; garis putus = separuh.</p>
+    <div class="sg-grid" id="govGrid" data-source="governance"></div>
+    <div class="sg-card"><h3>Model pemilikan negara<span class="en">State ownership models, share of jurisdictions (Figure 2.3)</span></h3>
+      <div class="sg-modelwrap"><div class="sg-viz" id="modelDonut" data-source="models"></div><div class="sg-models" id="models" data-source="models"></div></div>
+      <p class="sg-note">Baki bidang kuasa menggunakan model dwi atau twin-track.</p></div>
+  </section>
+
+  <!-- Integrity -->
+  <section class="sg-panel" id="integriti" role="tabpanel" hidden>
+    <p class="sg-take">Berdasarkan kajian pelaksanaan Garis Panduan Antirasuah &amp; Integriti (ACI) OECD 2025. Malaysia tidak termasuk dalam sampel ini.</p>
+    <div class="sg-grid">
+      <div class="sg-card"><h3>Tahap pelaksanaan<span class="en">Average implementation by pillar (Figure 7.2)</span></h3><div class="sg-viz sg-gauges" id="pillars" data-source="integrity"></div><p class="sg-how">Garis kecil di puncak tolok ialah paras 50%; jingga = di bawah separuh.</p></div>
+      <div class="sg-card"><h3>Jurang antara peraturan dan amalan<span class="en">Rules vs practice (Table 7.2, Figure 7.3)</span></h3><div class="sg-viz" id="gaps" data-source="integrity"></div><p class="sg-how">Garis putus ialah 50%. Peraturan wujud, tetapi pelaksanaan susulan jauh lebih rendah.</p></div>
+    </div>
+  </section>
+
+  <!-- Malaysia -->
+  <section class="sg-panel" id="malaysia" role="tabpanel" hidden>
+    <div class="sg-mybar"></div>
+    <h2 class="sg-sec" id="my-konteks"><span class="lt" style="--lc:var(--c-blue)">A</span>Konteks Malaysia<span class="en">Malaysia context (sources outside the OECD report)</span></h2>
+    <div class="sg-kpis" id="myCtx" data-source="my_context"></div>
+    <div class="sg-grid">
+      <div class="sg-card"><h3>Pelaburan domestik GLIC melonjak<span class="en">GEAR-uP domestic direct investment (outside sources)</span></h3>
+        <div class="sg-viz" id="ddiViz" data-source="my_context"></div><p class="sg-note" id="ddiCap" data-source="my_context"></p></div>
+      <div class="sg-card"><h3>Gaji wajar pekerja GLC<span class="en">Living-wage coverage (outside source)</span></h3>
+        <div class="sg-viz" id="wageViz" data-source="my_context"></div></div>
+    </div>
+    <h2 class="sg-sec" id="my-dapatan"><span class="lt" style="--lc:var(--c-teal)">B</span>Apa kata laporan OECD tentang Malaysia<span class="en">Findings recorded in the report's tables</span></h2>
+    <div class="sg-banner"><span class="sg-chip info">Nota</span>Label status ialah tafsiran penyusun berdasarkan Garis Panduan OECD, bukan penarafan OECD.</div>
+    <div class="sg-card"><h3>Kad skor dapatan<span class="en">The report's Malaysia entries, by status (compiler's reading)</span></h3><div class="sg-viz sg-score" id="score" data-source="my_findings"></div><p class="sg-how">Setiap petak ialah satu dapatan; halakan tetikus untuk melihat tajuknya.</p></div>
+    <div class="sg-cards" id="myFind" data-source="my_findings"></div>
+    <h2 class="sg-sec" id="my-kesesuaian"><span class="lt" style="--lc:var(--c-violet)">C</span>Bagaimana dapatan ini terpakai<span class="en">How the findings apply to Malaysia</span></h2>
+    <div class="sg-card"><div class="sg-tw"><table class="sg-table wide" id="applyTbl" data-source="my_apply" data-row-key="theme">
+      <thead><tr><th data-field="theme">Tema</th><th data-field="benchmark">Penanda aras OECD</th><th data-field="malaysia">Kedudukan Malaysia</th><th data-field="implication">Implikasi</th></tr></thead><tbody></tbody></table></div></div>
+    <h2 class="sg-sec" id="my-pov"><span class="lt" style="--lc:var(--c-orange)">D</span>Perspektif Malaysia<span class="en">A Malaysian point of view (analysis)</span></h2>
+    <div class="sg-cards" id="myPov" data-source="my_pov"></div>
+    <h2 class="sg-sec" id="my-hala"><span class="lt" style="--lc:var(--c-red)">E</span>Hala tuju untuk Malaysia<span class="en">Way forward (recommendations)</span></h2>
+    <div class="sg-card"><div id="road" data-source="my_roadmap"></div></div>
+    <div class="sg-foot">Sumber konteks Malaysia:
+      <ul>
+        <li><a href="https://mof.gov.my/portal/en/news/press-release/ekonomi-madani-rm120-billion-domestic-direct-investment-boost-from-glics-under-mof-led-programme" target="_blank" rel="noopener">MOF: GEAR-uP domestic direct investment from GLICs</a></li>
+        <li><a href="https://mof.gov.my/pdf/gearup-en/GEAR-uP-Report-Card-2026.pdf" target="_blank" rel="noopener">MOF: GEAR-uP Report Card 2026</a> · <a href="https://www.thestar.com.my/news/nation/2026/08/07/glics-triple-domestic-investments-to-rm203bil-under-gear-up-says-finance-ministry" target="_blank" rel="noopener">The Star</a></li>
+        <li><a href="https://theedgemalaysia.com/article/pm-launches-perkukuh-reform-malaysias-glics" target="_blank" rel="noopener">The Edge: PERKUKUH reform of GLICs</a></li>
+        <li><a href="https://www.ideas.org.my/wp-content/uploads/2024/11/141124_GLC-Oversight_Statement.pdf" target="_blank" rel="noopener">IDEAS: statement on GLC oversight</a></li>
+      </ul></div>
+  </section>
+
+  <footer class="sg-foot">Adaptasi daripada OECD (2026), CC BY 4.0. Pandangan, label status dan cadangan di sini bukan pandangan rasmi OECD atau negara anggotanya. Peratus dipaparkan kepada satu titik perpuluhan; laporan asal kebanyakannya membundarkan kepada nombor bulat. Definisi SOE dan ambang saiz mengikut Lampiran A laporan. Tiada data peribadi dipaparkan.</footer>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const f1=v=>Number(v).toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1});
+const fInt=v=>Number(v).toLocaleString("en-US");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const C=()=>dash.colors;
+
+/* Tabs and links */
+const tabs=[...document.querySelectorAll("#tabs button")];
+function show(id,link){
+  tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id?"true":"false"));
+  document.querySelectorAll(".sg-panel").forEach(p=>p.hidden=p.id!==id);
+  if(link)dash.setLink(id);
+}
+tabs.forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab,true)));
+
+/* Tooltip, positioned inside the hovered card */
+document.addEventListener("pointermove",ev=>{
+  const t=ev.target.closest&&ev.target.closest("[data-tip]");
+  document.querySelectorAll(".sg-tip").forEach(x=>{if(!t||x.parentElement!==t.closest(".sg-card"))x.remove()});
+  if(!t)return;
+  const card=t.closest(".sg-card");if(!card)return;
+  let tip=card.querySelector(":scope > .sg-tip");
+  if(!tip){tip=document.createElement("div");tip.className="sg-tip";card.appendChild(tip)}
+  const [k,v]=t.dataset.tip.split("|");
+  tip.innerHTML=`<div class="k">${esc(k)}</div><div>${esc(v)}</div>`;
+  const r=card.getBoundingClientRect();
+  let x=ev.clientX-r.left+12,y=ev.clientY-r.top-tip.offsetHeight-8;
+  if(x+tip.offsetWidth>r.width-4)x=r.width-tip.offsetWidth-4;if(y<4)y=ev.clientY-r.top+14;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+});
+
+function state(id,el){
+  const d=dash.data(id);
+  if(d.status==="ok"){el.classList.remove("dash-skeleton");return d.data}
+  if(d.status==="error"||d.status==="connect"||d.status==="declined"||d.status==="missing"){el.classList.remove("dash-skeleton");el.innerHTML='<div class="sg-fail">Failed to load</div>'}
+  else{el.innerHTML="";el.classList.add("dash-skeleton")}
+  return null;
+}
+function bar(pct,color,tip){return `<div class="sg-seg" style="width:${pct}%;background:${color}" data-tip="${esc(tip)}"></div>`}
+
+dash.onData(()=>{
+  const c=C();
+  ["swE1","swR1","swR3","swC1"].filter(i=>$("#"+i)).forEach(i=>$("#"+i).style.background=c[0]);
+  ["swR2","swR4","swC2"].filter(i=>$("#"+i)).forEach(i=>$("#"+i).style.background=c[1]);
+
+  /* Headline */
+  const hd=dash.data("headline");
+  document.querySelectorAll('[data-source="headline"][data-field]').forEach(el=>{
+    if(hd.status!=="ok"){if(hd.status==="loading")el.classList.add("dash-skeleton");else{el.classList.remove("dash-skeleton");el.textContent="—"}return}
+    el.classList.remove("dash-skeleton");
+    const id=el.dataset.where.split("=")[1],row=hd.data.find(r=>r.id===id),f=el.dataset.field;
+    if(!row){el.textContent="—";return}
+    if(f==="value"){el.dataset.n=row.value;el.dataset.fmt="int";el.textContent=fInt(row.value)}else el.textContent=row[f];
+  });
+  const tk=$("#takeaway");
+  if(hd.status==="ok"){const g=k=>hd.data.find(r=>r.id===k);tk.classList.remove("dash-skeleton");
+    tk.textContent=`${fInt(g("soe_count").value)} SOE besar memegang ${g("assets").unit.split(" ")[0]} ${fInt(g("assets").value)} ${g("assets").unit.split(" ")[1]} aset dan menggaji ${fInt(g("employment").value)} ${g("employment").unit}. Laporan mendapati SOE kurang untung dan lebih berhutang berbanding swasta, dan tadbir urus masih tidak seragam merentas ${fInt(g("jurisdictions").value)} bidang kuasa, termasuk Malaysia.`;}
+  else state("headline",tk);
+
+  /* Highlights */
+  const hl=state("highlights",$("#hiList"));state("highlights",$("#coList"));
+  if(hl){const li=(t,col)=>hl.filter(r=>r.type===t).map(r=>`<li><span class="sg-dot" style="background:${col}"></span><div>${esc(r.text_bm)}<span class="en">${esc(r.text_en)}</span></div></li>`).join("");
+    $("#hiList").innerHTML=li("highlight","var(--color-ok)");$("#coList").innerHTML=li("concern","var(--color-bad)");}
+
+  /* Regions */
+  const rg=state("regions",$("#regNum"));state("regions",$("#regAst"));
+  if(rg){
+    const st=(a,b,fmt,unit)=>{const mx=Math.max(...rg.map(r=>r[a]+r[b]));return rg.map(r=>{const t=r[a]+r[b];
+      return `<div class="sg-row"><div class="l">${esc(r.region_bm)}</div><div class="sg-track" style="width:${t/mx*100}%">${bar(r[a]/t*100,c[0],r.region_bm+"|Bukan kewangan: "+fmt(r[a])+unit)}${bar(r[b]/t*100,c[1],r.region_bm+"|Kewangan: "+fmt(r[b])+unit)}</div><div class="v">${fmt(t)}</div></div>`}).join("")};
+    $("#regNum").innerHTML=st("nf_count","fin_count",fInt,"");
+    $("#regAst").innerHTML=st("nf_assets","fin_assets",v=>Number.isInteger(v)?String(v):f1(v)," trilion");
+  }
+
+  /* Shifts table */
+  const sb=$("#shiftTbl tbody"),sh=state("shifts",sb);
+  if(sh)sb.innerHTML=sh.map(r=>{const fm=v=>r.unit==="pct"?f1(v)+"%":fInt(v);return `<tr data-key="${esc(r.indicator_en)}"><td>${esc(r.indicator_bm)}</td><td class="r">${fm(r.v2013)}</td><td class="r">${fm(r.v2024)}</td></tr>`}).join("");
+
+  /* Trends table */
+  const tb=$("#trendTbl tbody"),tr=state("trends",tb);
+  if(tr)tb.innerHTML=tr.map(r=>`<tr data-key="${esc(r.id)}"><td>${esc(r.indicator_bm)}<div class="en">${esc(r.indicator_en)}</div></td><td class="r">${r.v2013==null?"":f1(r.v2013)+"%"}</td><td class="r">${r.v2024==null?"":f1(r.v2024)+"%"}</td><td class="r">${r.change_pp==null?"":(r.change_pp>0?"+":"")+f1(r.change_pp)}</td><td><span class="sg-chip ${esc(r.direction)}">${esc(r.direction_bm)}</span></td></tr>`).join("");
+
+  /* Governance */
+  const gv=state("governance",$("#govGrid"));
+  if(gv){const groups=[...new Set(gv.map(r=>r.group_id))];
+    $("#govGrid").innerHTML=groups.map(gid=>{const rows=gv.filter(r=>r.group_id===gid);
+      return `<div class="sg-card sg-gov" data-g="${esc(gid)}"><h3>${esc(rows[0].group_bm)}<span class="en">${esc(rows[0].group_en)}</span></h3><div class="sg-rows">${rows.map(r=>{
+        const col=r.kind==="context"?"var(--cds-chart-muted)":(r.pct<50?"var(--c-gold)":"var(--acc)");
+        return `<div class="sg-row"><div class="l">${esc(r.label_bm)}<div class="en">${esc(r.label_en)}</div></div><div class="sg-track sg-bg">${bar(r.pct,col,r.label_bm+"|"+f1(r.pct)+"% bidang kuasa")}<span class="sg-ref"></span></div><div class="v">${f1(r.pct)}%</div></div>`}).join("")}</div></div>`}).join("");}
+
+  const md=state("models",$("#models"));
+  if(md)$("#models").innerHTML=md.map((r,i)=>`<div class="sg-model${r.malaysia?" on":""}" style="--m:${["var(--c-gold)","var(--c-teal)","var(--c-violet)","var(--c-blue)"][i%4]}"><div class="mv">${f1(r.pct)}%</div><div>${esc(r.model_bm)}<div class="en">${esc(r.model_en)}</div></div>${r.malaysia?'<span class="sg-chip info">Model Malaysia</span>':""}</div>`).join("");
+
+  /* Malaysia */
+  const mc=state("my_context",$("#myCtx"));
+  if(mc)$("#myCtx").innerHTML=mc.map(r=>`<div class="sg-card sg-kpi"><div class="lab">${esc(r.label_bm)} <span class="en">· ${esc(r.period)}</span></div>
+    <div><span class="val" data-n="${r.value}" data-fmt="${r.unit==="%"?"pct":(Number.isInteger(r.value)?"int":"f1")}">${r.unit==="%"?f1(r.value)+"%":(Number.isInteger(r.value)?fInt(r.value):f1(r.value))}</span>${r.unit&&r.unit!=="%"?`<span class="unit">${esc(r.unit)}</span>`:""}</div>
+    <div class="sub">${esc(r.note_bm)}</div><div class="sub">Sumber: ${esc(r.source)}</div></div>`).join("");
+  const mf=state("my_findings",$("#myFind"));
+  if(mf)$("#myFind").innerHTML=mf.map(r=>`<div class="sg-card sg-mini s-${esc(r.status)}"><span class="sg-chip ${esc(r.status)}">${esc(r.status_bm)}</span><div class="t">${esc(r.title_bm)}<span class="en">${esc(r.title_en)}</span></div><div class="d">${esc(r.detail_bm)}</div><div class="sg-ref-t">${esc(r.ref)}</div></div>`).join("");
+  const ab=$("#applyTbl tbody"),ap=state("my_apply",ab);
+  if(ap)ab.innerHTML=ap.map(r=>`<tr data-key="${esc(r.theme)}"><td><b>${esc(r.theme)}</b></td><td>${esc(r.benchmark)}</td><td><span class="sg-chip ${esc(r.status)}">${esc(r.status_bm)}</span><div>${esc(r.malaysia)}</div></td><td>${esc(r.implication)}</td></tr>`).join("");
+  const pv=state("my_pov",$("#myPov"));
+  if(pv)$("#myPov").innerHTML=pv.map(r=>`<div class="sg-card sg-mini s-${esc(r.tag)}"><span class="sg-chip ${esc(r.tag)}">${esc(r.tag_bm)}</span><div class="t">${esc(r.title_bm)}<span class="en">${esc(r.title_en)}</span></div><div class="d">${esc(r.body_bm)}</div></div>`).join("");
+  const rm=state("my_roadmap",$("#road"));
+  if(rm){let last="",pi=-1;const PC=["var(--c-blue)","var(--c-violet)","var(--c-gold)"];$("#road").innerHTML=rm.map(r=>{if(r.phase_bm!==last)pi++;const ph=r.phase_bm!==last?`<div class="sg-phase" style="--ph:${PC[pi%3]}">${esc(r.phase_bm)}</div>`:"";last=r.phase_bm;
+    return ph+`<div class="sg-step" style="margin-top:10px;--ph:${PC[pi%3]}"><div class="no">${String(r.n).padStart(2,"0")}</div><div class="sg-mini"><div class="t">${esc(r.title_bm)}<span class="en">${esc(r.title_en)}</span></div></div><div class="d sg-note">${esc(r.detail_bm)}</div><div class="r sg-ref-t">Rujukan OECD: ${esc(r.ref)}</div></div>`}).join("");}
+});
+
+
+/* Motion: play entry animations on load, tab switch and replay only (not on redraws) */
+const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fmtN={int:fInt,f1:f1,pct:v=>f1(v)+"%"};
+function stagger(panel){
+  [...panel.querySelectorAll(".sg-card,.sg-sec,:scope > .sg-take")].forEach((el,i)=>el.style.setProperty("--i",Math.min(i,14)));
+  panel.querySelectorAll(".sg-rows,.sg-list,#road,tbody,.sg-models,.sg-cards").forEach(g=>[...g.querySelectorAll(".sg-seg,li,.sg-step,tr,.sg-chip,.sg-phase,.sg-model")].forEach((el,j)=>{el.style.setProperty("--j",Math.min(j,20));if(el.classList.contains("sg-seg"))el.style.setProperty("--i",Math.min(j,20))}));
+  document.querySelectorAll(".sg-badge").forEach((b,i)=>b.style.setProperty("--i",i));
+}
+function countUp(panel){
+  if(reduce)return;
+  panel.querySelectorAll(".val[data-n]").forEach(el=>{
+    const n=Number(el.dataset.n),fmt=fmtN[el.dataset.fmt]||fInt;if(!isFinite(n))return;
+    const t0=performance.now(),dur=1400;el.classList.add("counting");
+    const step=t=>{const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);
+      el.textContent=fmt(el.dataset.fmt==="int"?Math.round(n*e):Math.round(n*e*10)/10);
+      if(p<1)requestAnimationFrame(step);else{el.textContent=fmt(n);el.classList.remove("counting")}};
+    requestAnimationFrame(step);
+  });
+}
+let playTimer=null;
+function play(panel,withHero){
+  arm(panel);
+  if(!panel||reduce)return;
+  stagger(panel);
+  const hero=$("#top");
+  panel.classList.remove("play");if(withHero)hero.classList.remove("play");
+  void panel.offsetWidth;
+  panel.classList.add("play");if(withHero)hero.classList.add("play");
+  countUp(panel);
+  clearTimeout(playTimer);playTimer=setTimeout(()=>{panel.classList.remove("play");hero.classList.remove("play")},3200);
+}
+const current=()=>document.querySelector(".sg-panel:not([hidden])");
+tabs.forEach(b=>b.addEventListener("click",()=>play(current(),false)));
+$("#replay").addEventListener("click",()=>play(current(),true));
+
+/* ===== Visual layer: every chart computed from the datasets; redrawn only when its data changes ===== */
+const vcache={};
+function draw(key,id,el,fn){if(!el)return;const d=state(id,el);if(!d){delete vcache[key];return}
+  const sig=JSON.stringify(d)+"|"+C().join(",");if(vcache[key]===sig)return;vcache[key]=sig;el.innerHTML=fn(d)}
+const S=(w,h,label,inner,mw)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}"${mw?` style="--mw:${mw}px"`:""}>${inner}</svg>`;
+const T=(x,y,txt,cls,anchor,extra)=>`<text x="${x}" y="${y}"${cls?` class="${cls}"`:""}${anchor?` text-anchor="${anchor}"`:""}${extra||""}>${esc(txt)}</text>`;
+const tip=(k,v)=>` data-tip="${esc(k+"|"+v)}"`;
+const sum=(a,k)=>a.reduce((s,r)=>s+Number(r[k]||0),0);
+function dodge(items,gap){items.sort((a,b)=>a.y-b.y);for(let i=1;i<items.length;i++)if(items[i].y<items[i-1].y+gap)items[i].y=items[i-1].y+gap;return items}
+function gauge(p,col,label,d){
+  const arc="M20 90 A60 60 0 0 1 140 90";
+  return S(160,100,label+": "+f1(p)+"%",
+    `<path d="${arc}" class="trk" stroke-width="16"/>`+
+    `<path d="${arc}" pathLength="100" class="va va-sweep" stroke-width="16" stroke-dasharray="${p} 100" style="stroke:${col};--d:${d}ms"${tip(label,f1(p)+"%")}/>`+
+    `<path d="M80 22 L80 36" class="ref"/>`+T(80,84,f1(p)+"%","big tb","middle"),170)}
+
+dash.onData(()=>{
+  const c=C(),col=i=>c[i%c.length];
+  ["swW1","swB1"].forEach(i=>{const e=$("#"+i);if(e)e.style.background=c[0]});
+  ["swW2","swB2"].forEach(i=>{const e=$("#"+i);if(e)e.style.background=c[1]});
+
+  /* Waffle: 100 squares from regional totals */
+  draw("waffle","regions",$("#waffle"),rg=>{
+    const nf=sum(rg,"nf_count"),fin=sum(rg,"fin_count"),t=nf+fin,k=Math.round(nf/t*100);
+    $("#waffleCap").textContent=`${fInt(t)} SOE besar: ${f1(nf/t*100)}% bukan kewangan (${fInt(nf)}) dan ${f1(fin/t*100)}% kewangan (${fInt(fin)}).`;
+    return Array.from({length:100},(_,i)=>{const isNf=i<k;
+      return `<i class="va va-pop" style="--d:${i*10}ms;background:${isNf?c[0]:c[1]}"${tip(isNf?"Bukan kewangan":"Kewangan",isNf?f1(nf/t*100)+"% · "+fInt(nf)+" SOE":f1(fin/t*100)+"% · "+fInt(fin)+" SOE")}></i>`}).join("")});
+  const wc=$("#waffleCap");if(wc&&dash.data("regions").status!=="ok")wc.textContent="";
+
+  /* Emerging-economy share as rings */
+  draw("em","emerging",$("#emDonuts"),em=>em.map((r,i)=>`<figure class="sg-donut">${S(120,120,r.measure_bm+": "+f1(r.emerging_pct)+"%",
+      `<circle cx="60" cy="60" r="46" class="trk" stroke-width="16"/>`+
+      `<g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="46" pathLength="100" class="va va-sweep" stroke-width="16" stroke-dasharray="${r.emerging_pct} ${100-r.emerging_pct}" style="stroke:${c[0]};--d:${i*200}ms"${tip(r.measure_bm,"Sedang pesat "+f1(r.emerging_pct)+"% · Maju "+f1(100-r.emerging_pct)+"%")}/></g>`+
+      T(60,67,f1(r.emerging_pct)+"%","tb","middle",' style="font-size:19px"'))}
+    <figcaption>${esc(r.measure_bm)}<span class="en">${esc(r.measure_en)}</span></figcaption></figure>`).join(""));
+
+  /* Regions as proportional circles */
+  draw("bub","regions",$("#bubbles"),rg=>{
+    const short={"China":"China","Europe":"Eropah","Asia excl. China":"Asia lain","Others":"Lain-lain","LAC":"Am. Latin","Africa":"Afrika"};
+    const rows=rg.map(r=>({...r,t:r.nf_count+r.fin_count})).sort((a,b)=>b.t-a.t),mx=rows[0].t,R=70,base=152,all=sum(rows,"t");
+    let prev=null;rows.forEach(r=>{r.r=Math.max(4,R*Math.sqrt(r.t/mx));r.cx=prev?prev.cx+prev.r+Math.max(14,58-prev.r-r.r)+r.r:8+r.r;prev=r});
+    const W=Math.ceil(prev.cx+prev.r+8);
+    $("#bubCap").textContent=`${rows[0].region_bm} sahaja memegang ${f1(rows[0].t/all*100)}% daripada ${fInt(all)} SOE besar; ${rows[1].region_bm} ${f1(rows[1].t/all*100)}%.`;
+    return S(W,192,"Bilangan SOE mengikut rantau",rows.map((r,i)=>{const rf=r.r*Math.sqrt(r.fin_count/r.t),nm=short[r.region_en]||r.region_bm;
+      return `<circle cx="${r.cx.toFixed(1)}" cy="${(base-r.r).toFixed(1)}" r="${r.r.toFixed(1)}" class="va va-pop" style="fill:${c[0]};--d:${i*160}ms"${tip(r.region_bm,"Jumlah "+fInt(r.t)+" · Bukan kewangan "+fInt(r.nf_count))}/>`+
+        `<circle cx="${r.cx.toFixed(1)}" cy="${(base-rf).toFixed(1)}" r="${rf.toFixed(1)}" class="va va-pop" style="fill:${c[1]};--d:${i*160+380}ms"${tip(r.region_bm,"Kewangan "+fInt(r.fin_count))}/>`+
+        T(r.cx.toFixed(1),base+17,nm,"tb","middle")+T(r.cx.toFixed(1),base+32,fInt(r.t),"tm","middle")}).join(""),640)});
+  const bc=$("#bubCap");if(bc&&dash.data("regions").status!=="ok")bc.textContent="";
+
+  /* 2013 -> 2024 slope chart for percentage shifts, and a growth column pair for counts */
+  draw("slope","shifts",$("#slope"),sh=>{
+    const rows=sh.filter(r=>r.unit==="pct"),x1=64,x2=270,y=v=>214-v*1.8;
+    const L=dodge(rows.map((r,i)=>({i,y:y(r.v2013)})),14),Rt=dodge(rows.map((r,i)=>({i,y:y(r.v2024)})),14);
+    const ly=i=>L.find(o=>o.i===i).y,ry=i=>Rt.find(o=>o.i===i).y;
+    $("#slopeLeg").innerHTML=rows.map((r,i)=>`<span><span class="sg-sw" style="background:${col(i)}"></span>${esc(r.indicator_bm)}</span>`).join("");
+    return S(340,232,"Peralihan 2013 ke 2024",T(x1,16,"2013","tb","middle")+T(x2,16,"2024","tb","middle")+
+      `<path d="M${x1} 28 L${x1} 214" class="ref"/><path d="M${x2} 28 L${x2} 214" class="ref"/>`+
+      rows.map((r,i)=>{const a=y(r.v2013),b=y(r.v2024),d=i*260;
+        return `<path d="M${x1} ${a.toFixed(1)} L${x2} ${b.toFixed(1)}" pathLength="1" class="va va-draw" style="stroke:${col(i)};stroke-width:3;fill:none;--d:${d}ms"${tip(r.indicator_bm,f1(r.v2013)+"% → "+f1(r.v2024)+"%")}/>`+
+          `<circle cx="${x1}" cy="${a.toFixed(1)}" r="5" class="va va-pop" style="fill:${col(i)};--d:${d}ms"/><circle cx="${x2}" cy="${b.toFixed(1)}" r="5" class="va va-pop" style="fill:${col(i)};--d:${d+900}ms"/>`+
+          T(x1-10,(ly(i)+4).toFixed(1),f1(r.v2013)+"%","tm","end")+T(x2+10,(ry(i)+4).toFixed(1),f1(r.v2024)+"%","tb va va-fade","start",` style="fill:${col(i)};--d:${d+900}ms"`)}).join(""),440)});
+  const sl=$("#slopeLeg");if(sl&&dash.data("shifts").status!=="ok")sl.innerHTML="";
+  draw("grow","shifts",$("#growCol"),sh=>{
+    const r=sh.find(x=>x.unit==="count");if(!r)return "";
+    const mx=Math.max(r.v2013,r.v2024),h=v=>v/mx*140,b=176,m=r.v2024/r.v2013;
+    return S(220,232,r.indicator_bm,
+      `<rect x="34" y="${(b-h(r.v2013)).toFixed(1)}" width="56" height="${h(r.v2013).toFixed(1)}" rx="4" class="va va-rise" style="fill:var(--cds-chart-muted)"${tip(r.indicator_bm,"2013: "+fInt(r.v2013))}/>`+
+      `<rect x="130" y="${(b-h(r.v2024)).toFixed(1)}" width="56" height="${h(r.v2024).toFixed(1)}" rx="4" class="va va-rise" style="fill:${c[0]};--d:350ms"${tip(r.indicator_bm,"2024: "+fInt(r.v2024))}/>`+
+      T(62,b-h(r.v2013)-8,fInt(r.v2013),"tb","middle")+T(158,b-h(r.v2024)-8,fInt(r.v2024),"tb va va-fade","middle",' style="--d:900ms"')+
+      T(62,b+18,"2013","tm","middle")+T(158,b+18,"2024","tm","middle")+
+      `<path d="M66 ${(b-h(r.v2013)-24).toFixed(1)} Q100 ${(b-h(r.v2024)-30).toFixed(1)} 130 ${(b-h(r.v2024)-14).toFixed(1)}" pathLength="1" class="va va-draw" style="stroke:var(--acc);stroke-width:2;fill:none;--d:700ms"/>`+
+      T(100,(b-h(r.v2024)-36).toFixed(1),f1(m)+"×","big tb va va-pop","middle",' style="fill:var(--acc);--d:1200ms"')+
+      T(110,b+38,r.indicator_bm,"tm","middle",' style="font-size:11px"'),240)});
+
+  /* SOE vs private: dumbbells */
+  const dumb=(rows,max,label)=>{const W=360,rh=50,x0=40,x=v=>x0+v/max*(W-x0-44);
+    return S(W,rows.length*rh+4,label,rows.map((r,i)=>{const y=i*rh+34,a=x(r.soe),b=x(r.non_soe),lo=Math.min(a,b),hi=Math.max(a,b),soeLo=a<=b,d=i*220;
+      return T(0,y-14,r.metric_bm,"tb")+`<path d="M${x0} ${y} L${W-44} ${y}" class="trkl"/>`+
+        `<path d="M${lo.toFixed(1)} ${y} L${hi.toFixed(1)} ${y}" pathLength="1" class="va va-draw" style="stroke:color-mix(in srgb,var(--color-fg) 35%,transparent);stroke-width:3;--d:${d+250}ms"/>`+
+        `<circle cx="${a.toFixed(1)}" cy="${y}" r="7" class="va va-pop" style="fill:${c[0]};--d:${d}ms"${tip(r.metric_bm,"SOE "+f1(r.soe)+"%")}/>`+
+        `<circle cx="${b.toFixed(1)}" cy="${y}" r="7" class="va va-pop" style="fill:${c[1]};--d:${d+120}ms"${tip(r.metric_bm,"Swasta "+f1(r.non_soe)+"%")}/>`+
+        T((soeLo?a-11:a+11).toFixed(1),y+4,f1(r.soe)+"%","tb",soeLo?"end":"start",` style="fill:${c[0]}"`)+
+        T((soeLo?b+11:b-11).toFixed(1),y+4,f1(r.non_soe)+"%","tb",soeLo?"start":"end",` style="fill:${c[1]}"`)}).join(""),540)};
+  draw("dumbA","compare",$("#dumbA"),cm=>{const rows=cm.filter(r=>r.unit==="%"&&!String(r.metric_id).startsWith("lev"));
+    return dumb(rows,Math.max(...rows.flatMap(r=>[r.soe,r.non_soe]))*1.12,"Keuntungan dan R&D")});
+  draw("dumbB","compare",$("#dumbB"),cm=>dumb(cm.filter(r=>r.unit==="%"&&String(r.metric_id).startsWith("lev")),100,"Leveraj"));
+  draw("np","compare",$("#npCall"),cm=>cm.filter(r=>r.unit!=="%").map(r=>{const p=r.soe/r.non_soe*100;
+    return `<div class="sg-call va va-pop"><span class="val" data-n="${p}" data-fmt="pct">${f1(p)}%</span><span>${esc(r.metric_bm)}: SOE hanya ${f1(p)}% daripada swasta (${f1(r.soe)} berbanding ${f1(r.non_soe)} ${esc(r.unit)}).</span></div>`}).join(""));
+
+  /* Regional trends: small multiples, plus leverage deltas */
+  draw("tsm","trends",$("#trendSm"),tr=>tr.filter(r=>r.v2013!=null&&r.v2024!=null).map((r,i)=>{
+    const mx=Math.max(r.v2013,r.v2024)*1.2,y=v=>96-v/mx*66,dc=r.direction==="good"?"var(--color-ok)":r.direction==="bad"?"var(--color-bad)":"var(--color-fg-muted)",d=i*180;
+    return `<figure><span class="sg-chip ${esc(r.direction)}">${esc(r.direction_bm)}</span><div>${esc(r.indicator_bm)}<span class="en">${esc(r.indicator_en)}</span></div>${S(160,118,r.indicator_bm,
+      `<path d="M30 96 L130 96" class="trkl" style="stroke-width:2"/>`+
+      `<path d="M30 ${y(r.v2013).toFixed(1)} L130 ${y(r.v2024).toFixed(1)}" pathLength="1" class="va va-draw" style="stroke:${dc};stroke-width:3;fill:none;--d:${d}ms"/>`+
+      `<circle cx="30" cy="${y(r.v2013).toFixed(1)}" r="5" class="va va-pop" style="fill:${dc};--d:${d}ms"/><circle cx="130" cy="${y(r.v2024).toFixed(1)}" r="5" class="va va-pop" style="fill:${dc};--d:${d+800}ms"${tip(r.indicator_bm,f1(r.v2013)+"% → "+f1(r.v2024)+"%")}/>`+
+      T(30,y(r.v2013)-10,f1(r.v2013)+"%","tm","middle")+T(130,y(r.v2024)-10,f1(r.v2024)+"%","tb va va-fade","middle",` style="fill:${dc};--d:${d+800}ms"`)+
+      T(30,114,"2013","tm","middle")+T(130,114,"2024","tm","middle"),170)}</figure>`}).join(""));
+  draw("lev","trends",$("#levChips"),tr=>tr.filter(r=>r.change_pp!=null).map((r,i)=>{
+    const dc=r.direction==="warn"?"var(--color-warn)":r.direction==="bad"?"var(--color-bad)":r.direction==="good"?"var(--color-ok)":"var(--color-fg-muted)";
+    return `<div class="sg-delta va va-pop" style="--dc:${dc};--d:${i*150}ms"><span class="ar">${r.change_pp>0?"▲":r.change_pp<0?"▼":"■"}</span><b>${r.change_pp>0?"+":""}${f1(r.change_pp)} m.p.</b><span>${esc(r.indicator_bm)}</span></div>`}).join(""));
+
+  /* Ownership models: donut with Malaysia's model marked */
+  draw("mdon","models",$("#modelDonut"),md=>{
+    const MC=["var(--c-gold)","var(--c-teal)","var(--c-violet)","var(--c-blue)"],tot=sum(md,"pct"),rest=Math.round((100-tot)*10)/10;
+    const segs=md.map((r,i)=>({p:r.pct,col:MC[i%4],nm:r.model_bm,my:r.malaysia}));if(rest>0.05)segs.push({p:rest,col:"var(--cds-chart-muted)",nm:"Dwi / twin-track (baki)",my:false});
+    const my=md.find(r=>r.malaysia);let cum=0;
+    return S(200,200,"Model pemilikan negara",segs.map((s,i)=>{const o=cum;cum+=s.p;
+      return `<g transform="rotate(-90 100 100)"><circle cx="100" cy="100" r="70" pathLength="100" class="va va-sweep" stroke-width="${s.my?34:24}" stroke-dasharray="${s.p} ${100-s.p}" stroke-dashoffset="${-o}" style="stroke:${s.col};--d:${i*240}ms"${tip(s.nm,f1(s.p)+"% bidang kuasa"+(s.my?" · Model Malaysia":""))}/></g>`}).join("")+
+      (my?T(100,94,"Malaysia","tm","middle")+T(100,114,my.model_bm,"tb","middle")+T(100,132,f1(my.pct)+"%","tm","middle"):""),230)});
+
+  /* Integrity: one gauge per pillar, lollipops for rules vs practice */
+  draw("pil","integrity",$("#pillars"),ig=>ig.filter(r=>r.section==="pillar").map((r,i)=>`<figure class="sg-gauge">${gauge(r.pct,r.pct<50?"var(--color-warn)":c[0],r.label_bm,i*200)}<figcaption>${esc(r.label_bm)}<span class="en">${esc(r.label_en)}</span></figcaption></figure>`).join(""));
+  draw("gap","integrity",$("#gaps"),ig=>{const rows=ig.filter(r=>r.section==="gap"),W=360,rh=46,x=v=>8+v/100*(W-60);
+    return S(W,rows.length*rh+10,"Peraturan berbanding amalan",`<path d="M${x(50)} 6 L${x(50)} ${rows.length*rh+4}" class="ref"/>`+rows.map((r,i)=>{const y=i*rh+34,cl=r.pct<50?"var(--color-warn)":c[0],d=i*180;
+      return T(8,y-13,r.label_bm,"tb")+`<path d="M${x(0)} ${y} L${x(r.pct).toFixed(1)} ${y}" pathLength="1" class="va va-draw" style="stroke:${cl};stroke-width:4;--d:${d}ms"/>`+
+        `<circle cx="${x(r.pct).toFixed(1)}" cy="${y}" r="8" class="va va-pop" style="fill:${cl};--d:${d+700}ms"${tip(r.label_bm,f1(r.pct)+"%")}/>`+T((x(r.pct)+14).toFixed(1),y+4,f1(r.pct)+"%","tb va va-fade","start",` style="--d:${d+800}ms"`)}).join(""),540)});
+
+  /* Malaysia: GLIC investment jump, living-wage gauge, findings scorecard */
+  draw("ddi","my_context",$("#ddiViz"),mc=>{const a=mc.find(r=>r.id==="ddi2024"),b=mc.find(r=>r.id==="ddi2025"),pl=mc.find(r=>r.id==="pledge");if(!a||!b)return "";
+    const mx=Math.max(a.value,b.value),h=v=>v/mx*130,base=168,m=b.value/a.value;
+    const mon=(v,u)=>String(u).startsWith("RM ")?`RM ${v} ${String(u).slice(3)}`:`${v} ${u}`;
+    $("#ddiCap").textContent=pl?`${pl.label_bm}: ${mon(fInt(pl.value),pl.unit)} (${pl.period}). Sumber: ${a.source}; ${b.source}.`:"";
+    return S(240,206,a.label_en,`<rect x="40" y="${(base-h(a.value)).toFixed(1)}" width="60" height="${h(a.value).toFixed(1)}" rx="4" class="va va-rise" style="fill:var(--cds-chart-muted)"${tip(a.label_bm,f1(a.value)+" "+a.unit)}/>`+
+      `<rect x="140" y="${(base-h(b.value)).toFixed(1)}" width="60" height="${h(b.value).toFixed(1)}" rx="4" class="va va-rise" style="fill:var(--c-gold);--d:350ms"${tip(b.label_bm,f1(b.value)+" "+b.unit)}/>`+
+      T(70,base-h(a.value)-8,f1(a.value),"tb","middle")+T(170,base-h(b.value)-8,f1(b.value),"tb va va-fade","middle",' style="--d:900ms"')+
+      T(70,base+18,a.period,"tm","middle")+T(170,base+18,b.period,"tm","middle")+T(120,base+36,a.unit,"tm","middle")+
+      `<path d="M74 ${(base-h(a.value)-26).toFixed(1)} Q108 ${(base-h(b.value)-28).toFixed(1)} 138 ${(base-h(b.value)-12).toFixed(1)}" pathLength="1" class="va va-draw" style="stroke:var(--c-gold);stroke-width:2;fill:none;--d:700ms"/>`+
+      T(104,(base-h(b.value)-30).toFixed(1),f1(m)+"×","big tb va va-pop","middle",' style="fill:var(--c-gold);--d:1200ms"'),260)});
+  const dc0=$("#ddiCap");if(dc0&&dash.data("my_context").status!=="ok")dc0.textContent="";
+  draw("wage","my_context",$("#wageViz"),mc=>{const r=mc.find(x=>x.id==="wage");if(!r)return "";
+    return `<figure class="sg-gauge">${gauge(r.value,"var(--c-green)",r.label_bm,0)}<figcaption>${esc(r.label_bm)}<span class="en">${esc(r.period)} · Sumber: ${esc(r.source)}</span></figcaption></figure>`});
+  draw("score","my_findings",$("#score"),mf=>{const order=[["bad","var(--color-bad)"],["warn","var(--color-warn)"],["good","var(--color-ok)"],["info","var(--c-blue)"]];let k=0;
+    return order.map(([st,sc])=>{const rows=mf.filter(r=>r.status===st);if(!rows.length)return "";const lb=[...new Set(rows.map(r=>r.status_bm))].join(" / ");
+      return `<div class="sg-sgroup" style="--sc:${sc}"><div class="cnt">${fInt(rows.length)}</div><div class="lb">${esc(lb)}</div><div class="sg-tiles">${rows.map(r=>`<i class="va va-pop" style="--d:${(k++)*120}ms"${tip(r.title_bm,r.status_bm+" · "+r.ref)}></i>`).join("")}</div></div>`}).join("")});
+});
+
+/* Scroll-aware: a chart animates the first time it comes into view after a tab opens or replay */
+const io=(typeof IntersectionObserver==="function")?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("go");io.unobserve(e.target)}}),{threshold:.2}):null;
+function arm(panel){if(!panel)return;panel.querySelectorAll(".sg-viz").forEach(v=>{if(reduce||!io){v.classList.add("go");return}v.classList.remove("go");void v.offsetWidth;io.observe(v)})}
+
+let firstPlayed=false;
+dash.onData(()=>{
+  if(firstPlayed)return;
+  const hd=dash.data("headline");
+  if(hd.status==="ok"){firstPlayed=true;requestAnimationFrame(()=>play(current(),true))}
+});
+
+/* Open a linked tab or Malaysia sub-section */
+const h=location.hash.slice(1);
+if(h){const tab=tabs.find(b=>b.dataset.tab===h);if(tab)show(h,false);else if(h.startsWith("my-")){show("malaysia",false);setTimeout(()=>{const el=document.getElementById(h);if(el)el.scrollIntoView()},300)}}
+})();
+</script>
